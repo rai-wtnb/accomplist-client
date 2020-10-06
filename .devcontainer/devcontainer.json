@@ -1,0 +1,13 @@
+{
+  "name": "AccompList-client",
+  "dockerComposeFile": [
+    "../docker/dev/docker-compose.yml",
+    "docker-compose.yml"
+  ],
+  "service": "client",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "terminal.integrated.shell.linux": null
+  },
+  "extensions": []
+}
