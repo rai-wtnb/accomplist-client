@@ -1,65 +1,51 @@
-import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import React from 'react';
+
+import { Layout } from '../components/layout';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Layout>
+      <div className="rounded border-2 border-beige text-center my-12">
+        <h1 className="text-2xl">What's AccompList?</h1>
+        <p className="text-sm pb-8">AccompListとは？</p>
+        <p>AccompListとは, 自分が成し遂げたい・実現させたい -<span className="text-red">Accomplish</span>- と思っていることのリスト -<span className="text-red">List</span>- です。</p>
+        <p>デザイナーになりたい, 〇〇へ旅行に行きたい, </p>
+      </div>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <div className="rounded border-2 border-beige my-12">
+        <h1 className="text-2xl">実現 -Accomplish- しよう。</h1>
+        <p>実現リストを書きましょう。</p>
+        <p>「目標達成のために何かスキルを習得する。」「ダイエットを達成する。」なんでも構いません。</p>
+        <p>そして, 実現したら達成した記録を残しましょう。</p>
+        <p>あなたの努力, 取り組みに共感してくれた方が「いいね」してくれるかもしれません。</p>
+      </div>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+      <div className="rounded border-2 border-beige px-1 my-12">
+        <h1 className="text-2xl">つながろう。</h1>
+        <p>何かに必死に取り組むひととつながりましょう。</p>
+        <p>ほかの人の取り組みを見て, 自分のモチベーションにつなげたり, 取り組むことの参考になったりします。</p>
+      </div>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="rounded border-2 border-beige my-12">
+        <h1 className="text-2xl">みんなと実現しよう。</h1>
+        <p>実現リスト -<sapn className="text-red">AccmpList</sapn>- を共有して, みんなで一緒に夢を・目標を実現させましょう!</p>
+        <Link
+          href="/signup"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  );
+          <a className="button">新規登録</a>
+        </Link>
+        <Link
+          href="/login"
+        >
+          <a className="button">ログイン</a>
+        </Link>
+        <Link
+          href="/login"
+        >
+          <a className="button">テストユーザー</a>
+        </Link>
+      </div>
+    </Layout>
+  )
 }

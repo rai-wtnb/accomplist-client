@@ -1,0 +1,37 @@
+/*
+size
+  text-sm
+  text-2xl
+*/
+
+@tailwind base;
+@tailwind components;
+
+html,
+body {
+  @apply text-black;
+  font-family: 'Sawarabi Gothic', sans-serif;
+}
+
+.layout {
+  @apply mx-auto w-3/5;
+}
+
+.header {
+  @apply py-10 relative;
+}
+
+.footer {
+  @apply text-sm text-center;
+}
+
+
+/* assets */
+.button {
+  @apply ml-5 rounded float-right text-beige text-sm bg-red p-2;
+}
+.button:hover {
+  @apply bg-opacity-90;
+}
+
+@tailwind utilities;
