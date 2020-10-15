@@ -7,5 +7,5 @@ export default function Signup() {
     <Layout>
       <h1>新規登録</h1>
     </Layout>
-  )
+  );
 }

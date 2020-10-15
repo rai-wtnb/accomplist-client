@@ -1,19 +1,17 @@
 import React from 'react';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
-import '../styles/tailwind.css'
+import '../styles/tailwind.css';
 
 function MyApp({ Component, pageProps }) {
   const DEFAULT_SEO = {
     title: 'AccompList',
-    description:
-      'rai watanabe. Portfolio.',
+    description: 'rai watanabe. Portfolio.',
     openGraph: {
       type: 'website',
       locale: 'ja',
       title: 'AccompList',
-      description:
-        'rai watanabe. Portfolio',
+      description: 'rai watanabe. Portfolio',
       site_name: 'AccompList',
       images: [
         {
@@ -22,12 +20,12 @@ function MyApp({ Component, pageProps }) {
           height: 600,
           alt: 'AccompList',
         },
-      ]
+      ],
     },
     twitter: {
       handle: '@mmuu_kkuu',
       cardType: 'summary_large_image',
-    }
+    },
   };
 
   return (
