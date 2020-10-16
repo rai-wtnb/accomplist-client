@@ -2,6 +2,8 @@
 size
   text-sm
   text-2xl
+responsive
+md: ミディアム
 */
 
 @tailwind base;
@@ -14,7 +16,7 @@ body {
 }
 
 .layout {
-  @apply mx-auto w-3/5;
+  @apply mx-auto w-11/12;
 }
 
 .header {
@@ -28,10 +30,10 @@ body {
 
 /* assets */
 .button {
-  @apply ml-5 rounded float-right text-beige text-sm bg-red p-2;
+  @apply rounded text-beige text-sm bg-red p-2;
 }
 .button:hover {
-  @apply bg-opacity-90;
+  @apply bg-opacity-90 cursor-pointer;
 }
 
 @tailwind utilities;

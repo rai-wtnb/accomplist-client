@@ -6,10 +6,10 @@ export const Header: FC = () => {
     <header className="header">
       <span className="text-blue text-2xl absolute bottom-0">AccompList.</span>
       <Link href="/signup">
-        <a className="button">新規登録</a>
+        <a className="button float-right ml-5">新規登録</a>
       </Link>
       <Link href="/login">
-        <a className="button">ログイン</a>
+        <a className="button float-right">ログイン</a>
       </Link>
     </header>
   );

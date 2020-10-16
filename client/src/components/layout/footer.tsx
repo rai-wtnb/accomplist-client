@@ -6,7 +6,7 @@ export const Footer: FC = () => {
       <p>
         <span>
           &#169;
-          {`${new Date().getFullYear()} rai watanabe.`}
+          {`${new Date().getFullYear()} muku.`}
         </span>
         <a
           href="https://github.com/rai-wtnb"
