@@ -25,19 +25,6 @@ export default function Signup() {
               <div className="grid grid-cols-5">
                 <div className="col-span-4">
                   <p className="py-4">
-                    □カナダへ留学するために難なく聞き取れるリスニング力とスピーキングを身につける
-                  </p>
-                </div>
-                <div className="col-span-1">
-                  <p className="button w-20 text-center my-4">done!</p>
-                </div>
-              </div>
-              {/* end */}
-
-              {/* set */}
-              <div className="grid grid-cols-5">
-                <div className="col-span-4">
-                  <p className="py-4">
                     {/* TODO */}
                     <Link href="/lists/[list-id]" as="/lists/1">
                       <a>□</a>
@@ -48,7 +35,7 @@ export default function Signup() {
                 <div className="col-span-1">
                   {/* TODO */}
                   <Link href="/lists/[list-id]" as="/lists/1">
-                    <div className="button w-20 text-center my-4">
+                    <div className="button w-20 text-center my-4 ml-auto">
                       <a>done!</a>
                     </div>
                   </Link>
@@ -64,7 +51,7 @@ export default function Signup() {
                 onSubmit={(values) => console.log(values)}
                 render={(props) => (
                   <form onSubmit={props.handleSubmit}>
-                    <div>
+                    <div className="pt-2">
                       <input
                         className="rounded border border-beige w-full text-black p-1"
                         name="todo"
@@ -79,7 +66,7 @@ export default function Signup() {
                   </form>
                 )}
               />
-              <button className="button bg-blue">x</button>
+              <button className="button bg-blue w-full">x</button>
               {/* TODO */}
               <p className="text-center bg-blue rounded text-beige cursor-pointer hover:bg-opacity-90">+</p>
 
@@ -94,12 +81,17 @@ export default function Signup() {
               </Link>
               <Link href="/">
                 <div className="p-4 hover:bg-opacity-90 bg-blue rounded cursor-pointer">
-                  <a>ランキング</a>
+                  <a>話題のAccompLister</a>
                 </div>
               </Link>
               <Link href="/">
                 <div className="p-4 hover:bg-opacity-90 bg-blue rounded cursor-pointer">
                   <a>友達のリスト</a>
+                </div>
+              </Link>
+              <Link href="/">
+                <div className="p-4 hover:bg-opacity-90 bg-blue rounded cursor-pointer">
+                  <a>お知らせ</a>
                 </div>
               </Link>
             </div>
