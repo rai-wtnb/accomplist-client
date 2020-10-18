@@ -18,7 +18,7 @@ module.exports = {
         '90': '.9',
       },
       inset: {
-        'custom': '5%',
+        'custom': '2%',
       },
     },
   },

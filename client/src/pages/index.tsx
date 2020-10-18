@@ -51,7 +51,8 @@ export default function Home() {
         <Link href="/login">
           <a className="button">ログイン</a>
         </Link>
-        <Link href="/login">
+        {/* TODO */}
+        <Link href="/users/tester">
           <a className="button">テストユーザー</a>
         </Link>
       </div>
