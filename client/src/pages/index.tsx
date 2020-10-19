@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="rounded border-2 border-beige text-center my-12">
-        <h1 className="text-2xl">What's AccompList?</h1>
+        <h1>What's AccompList?</h1>
         <p className="text-sm pb-8">AccompListとは？</p>
         <p>
           AccompListとは, 自分が成し遂げたい・実現させたい -
@@ -18,7 +18,7 @@ export default function Home() {
       </div>
 
       <div className="rounded border-2 border-beige my-12">
-        <h1 className="text-2xl">実現 -Accomplish- しよう。</h1>
+        <h1>実現 -Accomplish- しよう。</h1>
         <p>実現リストを書きましょう。</p>
         <p>
           「目標達成のために何かスキルを習得する。」「ダイエットを達成する。」なんでも構いません。
@@ -31,7 +31,7 @@ export default function Home() {
       </div>
 
       <div className="rounded border-2 border-beige px-1 my-12">
-        <h1 className="text-2xl">つながろう。</h1>
+        <h1>つながろう。</h1>
         <p>何かに必死に取り組むひととつながりましょう。</p>
         <p>
           ほかの人の取り組みを見て, 自分のモチベーションにつなげたり,
@@ -40,7 +40,7 @@ export default function Home() {
       </div>
 
       <div className="rounded border-2 border-beige my-12">
-        <h1 className="text-2xl">みんなと実現しよう。</h1>
+        <h1>みんなと実現しよう。</h1>
         <p>
           実現リスト -<span className="text-red">AccmpList</span>- を共有して,
           みんなで一緒に夢を・目標を実現させましょう!
@@ -51,7 +51,8 @@ export default function Home() {
         <Link href="/login">
           <a className="button">ログイン</a>
         </Link>
-        <Link href="/login">
+        {/* TODO */}
+        <Link href="/users/tester">
           <a className="button">テストユーザー</a>
         </Link>
       </div>

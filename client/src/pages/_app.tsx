@@ -1,7 +1,36 @@
 import React from 'react';
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  fas,
+  faCheckSquare,
+  faPlus,
+  faTimes,
+  faBell,
+  faPortrait,
+  faHeart,
+} from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import {
+  faSquare as farSquare,
+  faHeart as farHeart,
+} from '@fortawesome/free-regular-svg-icons';
+
 import '../styles/tailwind.css';
+
+library.add(
+  fab,
+  fas,
+  faCheckSquare,
+  farSquare,
+  faPlus,
+  faTimes,
+  faBell,
+  faPortrait,
+  faHeart,
+  farHeart,
+);
 
 function MyApp({ Component, pageProps }) {
   const DEFAULT_SEO = {
