@@ -1,33 +1,45 @@
 import React from 'react';
 import Link from 'next/link';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Layout } from '../../components/layout';
-
-const validation = () =>
-  Yup.object().shape({
-    todo: Yup.string()
-      .required('※入力してください'),
-  });
+import Menu from '../../components/Menu';
+import TodoRegister from '../../components/TodoRegister';
 
 export default function Signup() {
   return (
     <>
-      {/* <p className="rounded w-3/5 p-1 mx-auto text-center text-white bg-blue">ログイン成功しました。  ×</p> */}
+      {/* <p className="rounded w-3/5 p-2 mx-auto text-center text-white bg-blue">
+        ログインしました。
+         <FontAwesomeIcon icon="times" />
+      </p> */}
       <Layout>
-        <div className="py-12">
+        <div className="mt-12 rounded border-beige border-2 p-2">
+          <img
+            className="rounded inline"
+            src="https://via.placeholder.com/60"
+          />
+          <h1 className="pl-2 inline align-middle">ユーザー名</h1>
+          <div className="py-4">
+            <p>
+              幼い頃から親の転勤によって様々な地域で生活した経験があるので、文化や言葉や習慣の違いにすぐに順応する事が自然と身に付きました。そのため、自分の常識や普通にとらわれずに、人や物事を多角的、客観的に見るという事が私の強みです。何事もまず受け入れて新しいものを吸収したいと思っていますので、自分の中の物差しで人や物事を量ることをしませんが、自分の与えられた仕事や環境には責任と決断力を持って臨みます。
+            </p>
+          </div>
+        </div>
+
+        <div className="pt-6 pb-12">
           <div className="grid grid-cols-3 gap-2 relative">
             <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
-              <h1 className="text-2xl pb-4 text-center">(ユーザ名)'s リスト</h1>
+              <h1 className="pb-4 text-center">(ユーザ名)'s リスト</h1>
 
               {/* set */}
               <div className="grid grid-cols-5">
                 <div className="col-span-4">
                   <p className="py-4">
-                    {/* TODO */}
                     <Link href="/lists/[list-id]" as="/lists/1">
-                      <a>□</a>
+                      <a className="align-middle text-red pr-2 text-2xl">
+                        <FontAwesomeIcon icon="check-square" />
+                      </a>
                     </Link>
                     CKADを取得する
                   </p>
@@ -43,60 +55,27 @@ export default function Signup() {
               </div>
               {/* end */}
 
-              {/* TODO */}
-              <Formik
-                initialValues={{ todo: "" }}
-                validationSchema={validation()}
-                // TODO
-                onSubmit={(values) => console.log(values)}
-                render={(props) => (
-                  <form onSubmit={props.handleSubmit}>
-                    <div className="pt-2">
-                      <input
-                        className="rounded border border-beige w-full text-black p-1"
-                        name="todo"
-                        value={props.values.todo}
-                        onChange={props.handleChange}
-                      />
-                      <p className="text-sm text-red">{props.errors.todo}</p>
-                    </div>
-                    <button type="submit" className="button w-full p-1 mt-1">
-                      登録
-                    </button>
-                  </form>
-                )}
-              />
-              <button className="button bg-blue w-full">x</button>
-              {/* TODO */}
-              <p className="text-center bg-blue rounded text-beige cursor-pointer hover:bg-opacity-90">+</p>
+              {/* set */}
+              <div className="grid grid-cols-5">
+                <div className="col-span-4">
+                  <p className="py-4">
+                    <Link href="/lists/[list-id]" as="/lists/1">
+                      <a className="align-middle pr-2 text-2xl">
+                        <FontAwesomeIcon icon={['far', 'square']} />
+                      </a>
+                    </Link>
+                    ブログで10万PV達成
+                  </p>
+                </div>
+                <div className="col-span-1" />
+              </div>
+              {/* end */}
 
+              <TodoRegister />
             </div>
 
-            <div className="h-48 rounded text-beige p-2 divide-y divide-beige sticky top-custom">
-              {/* TODO */}
-              <Link href="/users/[user-id]" as="/users/2">
-                <div className="p-4 hover:bg-opacity-90 bg-blue rounded  cursor-pointer">
-                  <a>●マイページ</a>
-                </div>
-              </Link>
-              <Link href="/">
-                <div className="p-4 hover:bg-opacity-90 bg-blue rounded cursor-pointer">
-                  <a>話題のAccompLister</a>
-                </div>
-              </Link>
-              <Link href="/">
-                <div className="p-4 hover:bg-opacity-90 bg-blue rounded cursor-pointer">
-                  <a>友達のリスト</a>
-                </div>
-              </Link>
-              <Link href="/">
-                <div className="p-4 hover:bg-opacity-90 bg-blue rounded cursor-pointer">
-                  <a>お知らせ</a>
-                </div>
-              </Link>
-            </div>
+            <Menu />
           </div>
-          <p>最初にプロフィール画面, 下にリスト</p>
         </div>
       </Layout>
     </>

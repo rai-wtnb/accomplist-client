@@ -15,6 +15,10 @@ body {
   font-family: 'Sawarabi Gothic', sans-serif;
 }
 
+h1 {
+  @apply text-2xl;
+}
+
 .layout {
   @apply mx-auto w-11/12;
 }
