@@ -9,18 +9,18 @@ type MenuProps = {
 
 const menuItems = [
   {
-    icon: 'portrait',
+    icon: 'user',
     name: 'マイページ',
     href: '/users/[user-id]',
     as: '/users/2',
   },
   {
-    icon: 'times',
+    icon: 'medal',
     name: '話題のAccomLister',
     href: '/',
   },
   {
-    icon: 'times',
+    icon: 'hands-helping',
     name: '友達のリスト',
     href: '/',
   },
@@ -37,10 +37,10 @@ const Menu: FC<MenuProps> = () => {
       {menuItems.map((item) => {
         return (
           <Link href={item.href} as={item.as} key={item.name}>
-            <div className="p-4 hover:bg-opacity-90 bg-blue rounded  cursor-pointer">
+            <div className="p-4 hover:bg-red bg-blue rounded  cursor-pointer">
               <a>
                 <FontAwesomeIcon
-                  className="mr-2"
+                  className="mr-4"
                   icon={item.icon as IconProp}
                 />
                 {item.name}

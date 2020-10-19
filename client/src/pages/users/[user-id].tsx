@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Layout } from '../../components/layout';
 import Menu from '../../components/Menu';
 import TodoRegister from '../../components/TodoRegister';
+import Profile from '../../components/Profile';
 
 export default function Signup() {
   return (
@@ -14,31 +15,20 @@ export default function Signup() {
          <FontAwesomeIcon icon="times" />
       </p> */}
       <Layout>
-        <div className="mt-12 rounded border-beige border-2 p-2">
-          <img
-            className="rounded inline"
-            src="https://via.placeholder.com/60"
-          />
-          <h1 className="pl-2 inline align-middle">ユーザー名</h1>
-          <div className="py-4">
-            <p>
-              幼い頃から親の転勤によって様々な地域で生活した経験があるので、文化や言葉や習慣の違いにすぐに順応する事が自然と身に付きました。そのため、自分の常識や普通にとらわれずに、人や物事を多角的、客観的に見るという事が私の強みです。何事もまず受け入れて新しいものを吸収したいと思っていますので、自分の中の物差しで人や物事を量ることをしませんが、自分の与えられた仕事や環境には責任と決断力を持って臨みます。
-            </p>
-          </div>
-        </div>
+        <Profile />
 
         <div className="pt-6 pb-12">
           <div className="grid grid-cols-3 gap-2 relative">
             <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
               <h1 className="pb-4 text-center">(ユーザ名)'s リスト</h1>
 
-              {/* set */}
+              {/* 達成の場合 */}
               <div className="grid grid-cols-5">
                 <div className="col-span-4">
                   <p className="py-4">
                     <Link href="/lists/[list-id]" as="/lists/1">
-                      <a className="align-middle text-red pr-2 text-2xl">
-                        <FontAwesomeIcon icon="check-square" />
+                      <a className="align-middle pr-2 text-3xl hover:text-red">
+                        <FontAwesomeIcon icon={["far", "check-square"]} />
                       </a>
                     </Link>
                     CKADを取得する
@@ -55,12 +45,12 @@ export default function Signup() {
               </div>
               {/* end */}
 
-              {/* set */}
+              {/* 未達成の場合 */}
               <div className="grid grid-cols-5">
                 <div className="col-span-4">
                   <p className="py-4">
                     <Link href="/lists/[list-id]" as="/lists/1">
-                      <a className="align-middle pr-2 text-2xl">
+                      <a className="align-middle pr-2 text-3xl hover:text-red">
                         <FontAwesomeIcon icon={['far', 'square']} />
                       </a>
                     </Link>
