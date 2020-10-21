@@ -10,11 +10,19 @@ import {
   faBell,
   faPortrait,
   faHeart,
+  faMedal,
+  faHandsHelping,
+  faUser,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
-import { fab } from '@fortawesome/free-brands-svg-icons';
+import {
+  fab,
+  faTwitterSquare as fabTwitterSquare,
+} from '@fortawesome/free-brands-svg-icons';
 import {
   faSquare as farSquare,
   faHeart as farHeart,
+  faCheckSquare as farCheckSquare,
 } from '@fortawesome/free-regular-svg-icons';
 
 import '../styles/tailwind.css';
@@ -22,14 +30,19 @@ import '../styles/tailwind.css';
 library.add(
   fab,
   fas,
-  faCheckSquare,
-  farSquare,
   faPlus,
   faTimes,
   faBell,
   faPortrait,
   faHeart,
+  faMedal,
+  faHandsHelping,
+  faUser,
+  faTrash,
+  farSquare,
   farHeart,
+  farCheckSquare,
+  fabTwitterSquare,
 );
 
 function MyApp({ Component, pageProps }) {

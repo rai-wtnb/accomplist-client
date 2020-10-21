@@ -38,20 +38,20 @@ const TodoRegister: FC = () => {
             )}
           />
           <p
-            className="text-center bg-blue rounded text-beige cursor-pointer hover:bg-opacity-90 py-2"
+            className="text-center bg-blue rounded text-beige cursor-pointer hover:bg-red py-2"
             onClick={() => setRegisterOpen(false)}
           >
             <FontAwesomeIcon icon="times" />
           </p>
         </div>
       ) : (
-        <p
-          className="text-center bg-blue rounded text-beige cursor-pointer hover:bg-opacity-90 py-2"
-          onClick={() => setRegisterOpen(true)}
-        >
-          <FontAwesomeIcon icon="plus" />
-        </p>
-      )}
+          <p
+            className="text-center bg-blue rounded text-beige cursor-pointer hover:bg-red py-2"
+            onClick={() => setRegisterOpen(true)}
+          >
+            <FontAwesomeIcon icon="plus" />
+          </p>
+        )}
     </div>
   );
 };

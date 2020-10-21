@@ -35,7 +35,7 @@ export default function Login() {
                 <p className="text-sm text-red">{props.errors.email}</p>
               </div>
               <div className="pt-5">
-                <label>パスワード</label>
+                <label htmlFor="password">パスワード</label>
                 <br />
                 <input
                   className="rounded w-full text-black p-1"
