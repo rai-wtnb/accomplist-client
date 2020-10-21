@@ -13,6 +13,7 @@ import {
   faMedal,
   faHandsHelping,
   faUser,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import {
   fab,
@@ -37,6 +38,7 @@ library.add(
   faMedal,
   faHandsHelping,
   faUser,
+  faTrash,
   farSquare,
   farHeart,
   farCheckSquare,

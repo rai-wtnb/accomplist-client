@@ -20,6 +20,9 @@ module.exports = {
       inset: {
         'custom': '2%',
       },
+      fontSize: {
+        '7xl': '5rem',
+      }
     },
   },
   variants: {},
