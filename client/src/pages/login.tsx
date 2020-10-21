@@ -9,7 +9,10 @@ const validation = () =>
     email: Yup.string()
       .email('※メールアドレスの形式が正しくありません')
       .required('※メールアドレスを入力してください'),
-    password: Yup.string().required('※パスワードを入力してください'),
+    password: Yup
+      .string()
+      .oneOf([Yup.ref('password')], 'passwordが一致しません。')
+      .required('※パスワードを入力してください'),
   });
 
 export default function Login() {

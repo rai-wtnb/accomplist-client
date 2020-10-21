@@ -7,10 +7,20 @@ import { Layout } from '../components/layout';
 const validation = () =>
   Yup.object().shape({
     name: Yup.string().required('※表示名を入力してください'),
-    email: Yup.string()
+    email: Yup
+      .string()
       .email('※メールアドレスの形式が正しくありません')
-      .required('※メールアドレスを入力してください'),
-    password: Yup.string().required('※パスワードを入力してください'),
+      .required('※メールアドレスを入力してください')
+      .test('email-test', '※すでに存在します', (value) => {
+        if (value === "aaa@aaa.com") {
+          return false;
+        } else {
+          return true;
+        }
+      }),
+    password: Yup
+      .string()
+      .required('※パスワードを入力してください'),
   });
 
 export default function SignUp() {

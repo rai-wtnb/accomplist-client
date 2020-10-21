@@ -21,44 +21,72 @@ export default function Signup() {
         <div className="grid grid-cols-3 gap-2 relative py-12">
           <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
             <h1 className="pb-4 text-center">(ユーザ名)'s リスト</h1>
-            <FontAwesomeIcon icon="trash" />
 
             {/* 達成の場合 */}
-            <div className="grid grid-cols-5">
-              <div className="col-span-4">
-                <p className="py-4">
-                  <Link href="/lists/[list-id]" as="/lists/1">
-                    <a className="align-middle pr-2 text-3xl hover:text-red">
-                      <FontAwesomeIcon icon={["far", "check-square"]} />
-                    </a>
-                  </Link>
-                    CKADを取得する
-                  </p>
-              </div>
-              <div className="col-span-1">
-                {/* TODO */}
+            <div className="grid grid-cols-9">
+
+              <div className="col-span-1 pt-4">
                 <Link href="/lists/[list-id]" as="/lists/1">
-                  <div className="button w-20 text-center my-4 ml-auto">
-                    <a>done!</a>
-                  </div>
+                  <a className="align-middle pr-2 text-blue text-3xl hover:text-red">
+                    <FontAwesomeIcon icon={["far", "check-square"]} />
+                  </a>
                 </Link>
               </div>
+
+              <div className="col-span-5">
+                <p className="py-4">
+                  つれづれなるまゝに、日暮らし、硯にむかひて、心にうつりゆく
+                </p>
+              </div>
+
+              <div className="col-span-1" />
+
+              <div className="col-span-2">
+                {/* TODO */}
+                <Link href="/lists/[list-id]" as="/lists/1">
+                  <button className="button w-20 text-center my-4 ml-auto">
+                    <a>done!</a>
+                  </button>
+                </Link>
+
+                <div>
+                  <FontAwesomeIcon
+                    className="text-xl text-blue hover:text-red cursor-pointer mr-4 mb-4"
+                    icon="trash"
+                  />
+                </div>
+              </div>
+
             </div>
             {/* end */}
 
             {/* 未達成の場合 */}
-            <div className="grid grid-cols-5">
-              <div className="col-span-4">
-                <p className="py-4">
-                  <Link href="/lists/[list-id]" as="/lists/1">
-                    <a className="align-middle pr-2 text-3xl hover:text-red">
-                      <FontAwesomeIcon icon={['far', 'square']} />
-                    </a>
-                  </Link>
-                    ブログで10万PV達成
-                  </p>
+            <div className="grid grid-cols-9">
+              <div className="col-span-1 pt-4">
+                <Link href="/lists/setting/[list-id]" as="/lists/setting/1">
+                  <a className="align-middle pr-2 text-3xl text-blue hover:text-red">
+                    <FontAwesomeIcon icon={['far', 'square']} />
+                  </a>
+                </Link>
               </div>
+
+              <div className="col-span-5">
+                <p className="py-4">
+                  LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISICING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE
+                </p>
+              </div>
+
               <div className="col-span-1" />
+
+              <div className="col-span-2">
+                <div>
+                  <FontAwesomeIcon
+                    className="text-xl text-blue hover:text-red cursor-pointer mr-4 my-6"
+                    icon="trash"
+                  />
+                </div>
+              </div>
+
             </div>
             {/* end */}
 

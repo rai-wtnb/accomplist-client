@@ -22,7 +22,7 @@ module.exports = {
       },
       fontSize: {
         '7xl': '5rem',
-      }
+      },
     },
   },
   variants: {},
