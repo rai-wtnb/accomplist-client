@@ -20,7 +20,7 @@ export default function Signup() {
 
         <div className="grid grid-cols-3 gap-2 relative py-12">
           <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
-            <h1 className="pb-4 text-center">(ユーザ名)'s リスト</h1>
+            <h1 className="pb-4 text-center">ユーザ名's リスト</h1>
 
             {/* 達成の場合 */}
             <div className="grid grid-cols-9">
