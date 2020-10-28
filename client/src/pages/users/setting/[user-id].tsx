@@ -6,11 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Layout } from '../../../components/layout';
 
-const validation = () =>
-  Yup.object().shape({
-    name: Yup.string().required('※入力してください'),
-  });
-
 export default function listSetting() {
   const [profImg, setProfImg] = useState(null);
 
@@ -23,6 +18,19 @@ export default function listSetting() {
     var imageUrl = files.length === 0 ? "" : createObjectURL(files[0]);
     setProfImg(imageUrl)
   }
+
+  const validation = () =>
+    Yup.object().shape({
+      name: Yup
+        .string().required('※入力してください')
+        .max(30, '※名前は30字以下にしてください'),
+      twitter: Yup
+        .string()
+        .max(20, '※Twitterのユーザー名は15字以下です'),
+      text: Yup
+        .string()
+        .max(200, '※プロフィールが長すぎます(200字以下)')
+    });
 
   return (
     <Layout>

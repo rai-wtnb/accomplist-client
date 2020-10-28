@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Layout } from '../../../components/layout';
 
@@ -15,7 +14,7 @@ const validation = () =>
     feedbackBody: Yup
       .string()
       .required('※入力してください')
-      .max(200, 'テキストが長すぎます(200字以下)')
+      .max(500, '本文は500字以内にしてください')
   });
 
 export default function ListSetting() {

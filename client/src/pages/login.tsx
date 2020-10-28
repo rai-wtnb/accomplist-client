@@ -6,7 +6,8 @@ import { Layout } from '../components/layout';
 
 const validation = () =>
   Yup.object().shape({
-    email: Yup.string()
+    email: Yup
+      .string()
       .email('※メールアドレスの形式が正しくありません')
       .required('※メールアドレスを入力してください'),
     password: Yup

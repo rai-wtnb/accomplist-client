@@ -4,26 +4,30 @@ import * as Yup from 'yup';
 
 import { Layout } from '../components/layout';
 
-const validation = () =>
-  Yup.object().shape({
-    name: Yup.string().required('※表示名を入力してください'),
-    email: Yup
-      .string()
-      .email('※メールアドレスの形式が正しくありません')
-      .required('※メールアドレスを入力してください')
-      .test('email-test', '※すでに存在します', (value) => {
-        if (value === "aaa@aaa.com") {
-          return false;
-        } else {
-          return true;
-        }
-      }),
-    password: Yup
-      .string()
-      .required('※パスワードを入力してください'),
-  });
-
 export default function SignUp() {
+  const validation = () =>
+    Yup.object().shape({
+      name: Yup.string()
+        .required('※表示名を入力してください')
+        .max(30, '※名前は30字以下にしてください'),
+      email: Yup
+        .string()
+        .email('※メールアドレスの形式が正しくありません')
+        .required('※メールアドレスを入力してください')
+        .test('email-test', '※すでに存在します', (value) => {
+          if (value === "aaa@aaa.com") {
+            return false;
+          } else {
+            return true;
+          }
+        }),
+      password: Yup
+        .string()
+        .required('※パスワードを入力してください')
+        .min(6, 'パスワードが短すぎます(6字以上)')
+        .max(50, '50字以下にしてください')
+    });
+
   return (
     <Layout>
       <div className="rounded bg-blue h-100 w-auto md:w-1/2 mx-auto my-10 py-32 px-10 text-beige">

@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const validation = () =>
   Yup.object().shape({
-    todo: Yup.string().required('※入力してください'),
+    todo: Yup
+      .string().required('※入力してください')
+      .max(100, '※100字以下にしてください')
   });
 
 const TodoRegister: FC = () => {
