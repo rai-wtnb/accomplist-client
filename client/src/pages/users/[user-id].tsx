@@ -1,4 +1,5 @@
 import React from 'react';
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -7,14 +8,14 @@ import Menu from '../../components/Menu';
 import TodoRegister from '../../components/TodoRegister';
 import Profile from '../../components/Profile';
 
-export default function Signup() {
+export const Home: NextPage = () => {
   return (
     <>
       {/* <p className="rounded w-3/5 p-2 mx-auto text-center text-white bg-blue">
         ログインしました。
          <FontAwesomeIcon icon="times" />
       </p> */}
-      <Layout>
+      < Layout >
         <Profile />
 
 
@@ -96,7 +97,24 @@ export default function Signup() {
           <Menu />
         </div>
 
-      </Layout>
+      </Layout >
     </>
   );
 }
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const res = await fetch('')
+//   return { paths, fallback: false }
+// };
+
+// export const getStaticProps: GetStaticProps = async () => {
+//   const api = new BlogApi();
+//   const entries = await api.fetchBlogEntries();
+//   return {
+//     props: {
+//       entries,
+//     },
+//   };
+// };
+
+export default Home;

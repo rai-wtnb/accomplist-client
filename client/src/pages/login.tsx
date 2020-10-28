@@ -28,9 +28,10 @@ export default function Login() {
           render={(props) => (
             <form onSubmit={props.handleSubmit}>
               <div>
-                <label>Eメール</label>
+                <label htmlFor="email">Eメール</label>
                 <br />
                 <input
+                  id="email"
                   className="rounded w-full text-black p-1"
                   name="email"
                   value={props.values.email}
@@ -42,6 +43,7 @@ export default function Login() {
                 <label htmlFor="password">パスワード</label>
                 <br />
                 <input
+                  id="password"
                   className="rounded w-full text-black p-1"
                   type="password"
                   name="password"
