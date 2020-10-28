@@ -7,14 +7,27 @@ import { Layout } from '../components/layout';
 export default function SignUp() {
   const validation = () =>
     Yup.object().shape({
-      name: Yup.string()
+      id: Yup
+        .string()
+        .required('※IDを入力してください')
+        .matches(/^[a-zA-Z0-9_]+$/, { message: '※英数字と「_」のみ有効です' })
+        .max(20, '※IDは20字以下にしてください')
+        .test('id-test', '※すでに使用されています', (value) => {
+          if (value === "aaaaaa") {
+            return false;
+          } else {
+            return true;
+          }
+        }),
+      name: Yup
+        .string()
         .required('※表示名を入力してください')
         .max(30, '※名前は30字以下にしてください'),
       email: Yup
         .string()
         .email('※メールアドレスの形式が正しくありません')
         .required('※メールアドレスを入力してください')
-        .test('email-test', '※すでに存在します', (value) => {
+        .test('email-test', '※すでに登録されています', (value) => {
           if (value === "aaa@aaa.com") {
             return false;
           } else {
@@ -30,15 +43,28 @@ export default function SignUp() {
 
   return (
     <Layout>
-      <div className="rounded bg-blue h-100 w-auto md:w-1/2 mx-auto my-10 py-32 px-10 text-beige">
+      <div className="rounded bg-blue h-100 w-auto md:w-1/2 mx-auto my-10 py-20 px-10 text-beige">
         <h1 className="text-center text-2xl pb-10">Welcome.</h1>
         <Formik
-          initialValues={{ name: '', email: '', password: '' }}
+          initialValues={{ id: '', name: '', email: '', password: '' }}
           validationSchema={validation()}
           onSubmit={(values) => console.log(values)}
           render={(props) => (
             <form onSubmit={props.handleSubmit}>
               <div>
+                <label>ユーザーID</label>
+                <input
+                  className="rounded w-full text-black p-1"
+                  name="id"
+                  value={props.values.id}
+                  onChange={props.handleChange}
+                />
+                <p className="text-xs pt-1">英数字と「_」(アンダーバー)のみで作成してください</p>
+                <p className="text-xs pt-1">(例: sample_user1)</p>
+                <p className="text-sm text-red">{props.errors.id}</p>
+              </div>
+
+              <div className="pt-5">
                 <label>表示名</label>
                 <input
                   className="rounded w-full text-black p-1"
@@ -49,6 +75,7 @@ export default function SignUp() {
                 <p className="text-xs">これはプロフィールに表示されます</p>
                 <p className="text-sm text-red">{props.errors.name}</p>
               </div>
+
               <div className="pt-5">
                 <label>Eメールを登録</label>
                 <br />
@@ -60,6 +87,7 @@ export default function SignUp() {
                 />
                 <p className="text-sm text-red">{props.errors.email}</p>
               </div>
+
               <div className="pt-5">
                 <label>パスワードを作成</label>
                 <br />
@@ -72,6 +100,7 @@ export default function SignUp() {
                 />
                 <p className="text-red text-sm">{props.errors.password}</p>
               </div>
+
               <button type="submit" className="button w-full mt-10">
                 登録する
               </button>
