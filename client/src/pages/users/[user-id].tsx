@@ -2,11 +2,14 @@ import React from 'react';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 
 import { Layout } from '../../components/layout';
 import Menu from '../../components/Menu';
 import TodoRegister from '../../components/TodoRegister';
 import Profile from '../../components/Profile';
+
+const URL = "172.18.0.1:8080/users"
 
 export const Home: NextPage = () => {
   return (
@@ -102,10 +105,12 @@ export const Home: NextPage = () => {
   );
 }
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const res = await fetch('')
-//   return { paths, fallback: false }
-// };
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res: [{ id: string }] = await axios.get(URL);
+  const paths = res.map(data => `/users/${data.id}`);
+
+  return { paths, fallback: false };
+};
 
 // export const getStaticProps: GetStaticProps = async () => {
 //   const api = new BlogApi();

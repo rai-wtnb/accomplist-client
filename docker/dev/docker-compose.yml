@@ -9,3 +9,9 @@ services:
     ports:
       - "3000:3000"
     tty: true
+    networks:
+      - accomplist_link
+
+networks:
+  accomplist_link:
+    external: true
