@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 
 import { Layout } from '../../../components/layout';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import User from '../../../types/user';
 
-export default function listSetting() {
-  const [profImg, setProfImg] = useState(null);
+type Props = {
+  user: User;
+}
+
+const UserSetting: NextPage<Props> = ({ user }) => {
+  const { name, twitter, profile, img } = user;
+  const [profImg, setProfImg] = useState<string>(img);
 
   var createObjectURL;
   if (process.browser) {
@@ -32,6 +40,7 @@ export default function listSetting() {
         .max(200, '※プロフィールが長すぎます(200字以下)')
     });
 
+
   return (
     <Layout>
       <div className="mt-12 rounded border-beige border-2 p-2">
@@ -40,28 +49,32 @@ export default function listSetting() {
 
         <Formik
           // TODO
-          initialValues={{ profImg: null, name: '', twitter: '', text: '' }}
+          initialValues={{ img: null, name: name, twitter: twitter, text: profile }}
           validationSchema={validation()}
           // TODO
           onSubmit={(values) => {
             console.log(values)
           }}
-          render={(props,) => (
+        >
+          {(props) => (
             <form onSubmit={props.handleSubmit}>
               <div className="grid grid-cols-4">
                 <div className="col-span-1">
+
                   <div className="pt-4 pb-2">
-                    <label htmlFor="profImg" className="bg-blue hover:bg-red text-beige rounded p-1 px-6">
+                    <label htmlFor="img" className="bg-blue hover:bg-red text-beige rounded p-1 px-6">
                       画像を選択
-                </label>
+                    </label>
                   </div>
-                  <Field
+                  <input
                     className="bg-blue text-beige hidden"
                     name="profImg"
-                    id="profImg"
+                    id="img"
                     type="file"
-                    value={props.values.profImg}
-                    onChange={e => handleChangeFile(e)}
+                    onChange={e => {
+                      handleChangeFile(e);
+                      props.setFieldValue("img", e.currentTarget.files[0]);
+                    }}
                   />
                   <div className="h-32 w-32 rounded bg-beige">
                     {
@@ -134,7 +147,7 @@ export default function listSetting() {
                 </button>
             </form>
           )}
-        />
+        </Formik>
         <Link href="/users/[user-id]" as="/users/1">
           <a>
             <button className="w-full bg-blue text-beige hover:bg-red p-1 rounded">キャンセル</button>
@@ -144,3 +157,23 @@ export default function listSetting() {
     </Layout>
   );
 }
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await axios.get(`${process.env.ACCOMPLIST_API}/ids`)
+  const ids: string[] = await res.data;
+  const paths = ids.map(id => `/users/setting/${id}`);
+  return { paths, fallback: false };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params['user-id'];
+  const res = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
+  const user = res.data;
+  return {
+    props: {
+      user
+    },
+  };
+};
+
+export default UserSetting;

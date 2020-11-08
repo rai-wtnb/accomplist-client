@@ -43,7 +43,8 @@ export default function ListSetting() {
           onSubmit={(values) => {
             console.log(values)
           }}
-          render={(props,) => (
+        >
+          {(props,) => (
             <form
               onSubmit={props.handleSubmit}
               className="p-2"
@@ -107,7 +108,7 @@ export default function ListSetting() {
                 </button>
             </form>
           )}
-        />
+        </Formik>
 
         <div className="px-2 pb-2">
           <Link href="/users/[user-id]" as="/users/1">

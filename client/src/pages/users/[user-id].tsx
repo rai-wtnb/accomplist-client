@@ -8,18 +8,18 @@ import { Layout } from '../../components/layout';
 import Menu from '../../components/Menu';
 import TodoRegister from '../../components/TodoRegister';
 import Profile from '../../components/Profile';
+import User from '../../types/user';
 
-const URL = "172.18.0.1:8080/users"
+type Props = {
+  user: User;
+}
 
-export const Home: NextPage = () => {
+const Home: NextPage<Props> = ({ user }) => {
+  const { id, name, email, password, twitter, profile, img } = user;
   return (
     <>
-      {/* <p className="rounded w-3/5 p-2 mx-auto text-center text-white bg-blue">
-        ログインしました。
-         <FontAwesomeIcon icon="times" />
-      </p> */}
       < Layout >
-        <Profile />
+        <Profile id={id} name={name} twitter={twitter} profile={profile} img={img} />
 
 
         <div className="grid grid-cols-3 gap-2 relative py-12">
@@ -106,20 +106,21 @@ export const Home: NextPage = () => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res: [{ id: string }] = await axios.get(URL);
-  const paths = res.map(data => `/users/${data.id}`);
-
+  const res = await axios.get(`${process.env.ACCOMPLIST_API}/ids`)
+  const ids: string[] = await res.data;
+  const paths = ids.map(id => `/users/${id}`);
   return { paths, fallback: false };
 };
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   const api = new BlogApi();
-//   const entries = await api.fetchBlogEntries();
-//   return {
-//     props: {
-//       entries,
-//     },
-//   };
-// };
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params['user-id'];
+  const res = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
+  const user = res.data;
+  return {
+    props: {
+      user
+    },
+  };
+};
 
 export default Home;
