@@ -49,7 +49,8 @@ export default function SignUp() {
           initialValues={{ id: '', name: '', email: '', password: '' }}
           validationSchema={validation()}
           onSubmit={(values) => console.log(values)}
-          render={(props) => (
+        >
+          {(props) => (
             <form onSubmit={props.handleSubmit}>
               <div>
                 <label>ユーザーID</label>
@@ -106,7 +107,7 @@ export default function SignUp() {
               </button>
             </form>
           )}
-        />
+        </Formik>
       </div>
     </Layout>
   );

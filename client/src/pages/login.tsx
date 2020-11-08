@@ -25,7 +25,8 @@ export default function Login() {
           initialValues={{ email: '', password: '' }}
           validationSchema={validation()}
           onSubmit={(values) => console.log(values)}
-          render={(props) => (
+        >
+          {(props) => (
             <form onSubmit={props.handleSubmit}>
               <div>
                 <label htmlFor="email">Eメール</label>
@@ -57,7 +58,7 @@ export default function Login() {
               </button>
             </form>
           )}
-        />
+        </Formik>
       </div>
     </Layout>
   );
