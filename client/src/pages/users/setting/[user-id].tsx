@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 
 import { Layout } from '../../../components/layout';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import User from '../../../types/user';
+import FileInput from '../../../components/FileInput';
 
 type Props = {
   user: User;
@@ -16,16 +16,6 @@ type Props = {
 const UserSetting: NextPage<Props> = ({ user }) => {
   const { name, twitter, profile, img } = user;
   const [profImg, setProfImg] = useState<string>(img);
-
-  var createObjectURL;
-  if (process.browser) {
-    createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.URL.createObjectURL;
-  }
-  const handleChangeFile = (e) => {
-    var files = e.target.files;
-    var imageUrl = files.length === 0 ? "" : createObjectURL(files[0]);
-    setProfImg(imageUrl)
-  }
 
   const validation = () =>
     Yup.object().shape({
@@ -60,38 +50,12 @@ const UserSetting: NextPage<Props> = ({ user }) => {
             <form onSubmit={props.handleSubmit}>
               <div className="grid grid-cols-4">
                 <div className="col-span-1">
-
-                  <div className="pt-4 pb-2">
-                    <label htmlFor="img" className="bg-blue hover:bg-red text-beige rounded p-1 px-6">
-                      画像を選択
-                    </label>
-                  </div>
-                  <input
-                    className="bg-blue text-beige hidden"
-                    name="profImg"
-                    id="img"
-                    type="file"
-                    onChange={e => {
-                      handleChangeFile(e);
-                      props.setFieldValue("img", e.currentTarget.files[0]);
-                    }}
+                  <FileInput
+                    setImg={setProfImg}
+                    props={props}
+                    existImg={profImg}
+                    isUser={true}
                   />
-                  <div className="h-32 w-32 rounded bg-beige">
-                    {
-                      profImg ?
-                        <img
-                          className="rounded object-cover h-32 w-full"
-                          src={profImg}
-                        />
-                        :
-                        <div className="flex justify-center pt-8">
-                          <FontAwesomeIcon
-                            className="text-7xl text-blue items-center"
-                            icon="user"
-                          />
-                        </div>
-                    }
-                  </div>
                 </div>
 
                 <div className="pt-2 col-span-3">
