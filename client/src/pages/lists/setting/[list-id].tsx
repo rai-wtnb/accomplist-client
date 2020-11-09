@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { Layout } from '../../../components/layout';
+import FileInput from '../../../components/FileInput';
 
 const validation = () =>
   Yup.object().shape({
@@ -18,17 +19,7 @@ const validation = () =>
   });
 
 export default function ListSetting() {
-  const [feedbackImg, setFeedbackImg] = useState(null);
-
-  var createObjectURL;
-  if (process.browser) {
-    createObjectURL = (window.URL || window.webkitURL).createObjectURL || window.URL.createObjectURL;
-  }
-  const handleChangeFile = (e) => {
-    var files = e.target.files;
-    var imageUrl = files.length === 0 ? "" : createObjectURL(files[0]);
-    setFeedbackImg(imageUrl)
-  }
+  const [feedbackImg, setFeedbackImg] = useState<string>(null);
 
   return (
     <Layout>
@@ -37,7 +28,7 @@ export default function ListSetting() {
 
         <Formik
           // TODO
-          initialValues={{ feedbackImg: null, feedbackTitle: '', feedbackBody: '' }}
+          initialValues={{ img: null, feedbackTitle: '', feedbackBody: '' }}
           validationSchema={validation()}
           // TODO
           onSubmit={(values) => {
@@ -49,29 +40,13 @@ export default function ListSetting() {
               onSubmit={props.handleSubmit}
               className="p-2"
             >
-              <div className="pt-4 pb-2">
-                <label htmlFor="profImg" className="bg-blue hover:bg-red text-beige rounded p-1 px-6">
-                  画像を選択
-                    </label>
-              </div>
-              <Field
-                className="bg-blue text-beige hidden"
-                name="profImg"
-                id="profImg"
-                type="file"
-                value={props.values.feedbackImg}
-                onChange={e => handleChangeFile(e)}
+
+              <FileInput
+                setImg={setFeedbackImg}
+                props={props}
+                existImg={feedbackImg}
+                isUser={false}
               />
-              <div>
-                {feedbackImg ?
-                  <img
-                    className="rounded object-cover mx-auto object-cover w-2/3"
-                    src={feedbackImg}
-                  />
-                  :
-                  <img className="p-2 mx-auto" src="https://via.placeholder.com/600x400" />
-                }
-              </div>
 
               <div className="pt-2">
                 <div>
