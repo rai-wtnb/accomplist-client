@@ -6,11 +6,11 @@ type Props = {
   id: string;
   name: string;
   twitter: string;
-  profile: string;
+  description: string;
   img: string;
 }
 
-const Profile: FC<Props> = ({ id, name, twitter, profile, img }) => {
+const Profile: FC<Props> = ({ id, name, twitter, description, img }) => {
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
       <div className="grid grid-cols-6">
@@ -59,14 +59,9 @@ const Profile: FC<Props> = ({ id, name, twitter, profile, img }) => {
       </div>
 
       <div className="py-8">
-        {
-          profile ?
-            <p>{profile}</p>
-            :
-            ""
-        }
+        <p>{description}</p>
         {/* 自分のページのみ表示 */}
-        {!profile && true && <p>プロフィールを書きましょう！！</p>}
+        {!description && true && <p>プロフィールを書きましょう！！</p>}
       </div>
     </div>
   );
