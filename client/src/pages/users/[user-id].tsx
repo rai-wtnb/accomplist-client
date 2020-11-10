@@ -15,11 +15,11 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ user }) => {
-  const { id, name, email, password, twitter, profile, img } = user;
+  const { id, name, twitter, description, img } = user;
   return (
     <>
       < Layout >
-        <Profile id={id} name={name} twitter={twitter} profile={profile} img={img} />
+        <Profile id={id} name={name} twitter={twitter} description={description} img={img} />
 
 
         <div className="grid grid-cols-3 gap-2 relative py-12">

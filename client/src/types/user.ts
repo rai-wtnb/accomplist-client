@@ -1,10 +1,8 @@
 type User = {
   id: string;
   name: string;
-  email: string; //TODO
-  password: string;  // TODO
   twitter?: string;
-  profile?: string;
+  description?: string;
   img?: string;
 }
 

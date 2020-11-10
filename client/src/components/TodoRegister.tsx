@@ -22,7 +22,8 @@ const TodoRegister: FC = () => {
             validationSchema={validation()}
             // TODO
             onSubmit={(values) => console.log(values)}
-            render={(props) => (
+          >
+            {(props) => (
               <form onSubmit={props.handleSubmit}>
                 <div className="pt-2">
                   <input
@@ -38,7 +39,7 @@ const TodoRegister: FC = () => {
                 </button>
               </form>
             )}
-          />
+          </Formik>
           <p
             className="text-center bg-blue rounded text-beige cursor-pointer hover:bg-red py-2"
             onClick={() => setRegisterOpen(false)}

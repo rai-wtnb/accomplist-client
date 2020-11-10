@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Layout } from '../../../components/layout';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
@@ -14,8 +15,9 @@ type Props = {
 }
 
 const UserSetting: NextPage<Props> = ({ user }) => {
-  const { name, twitter, profile, img } = user;
+  const { id, name, twitter, description, img } = user;
   const [profImg, setProfImg] = useState<string>(img);
+  const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
 
   const validation = () =>
     Yup.object().shape({
@@ -25,7 +27,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
       twitter: Yup
         .string()
         .max(20, '※Twitterのユーザー名は15字以下です'),
-      text: Yup
+      description: Yup
         .string()
         .max(200, '※プロフィールが長すぎます(200字以下)')
     });
@@ -37,13 +39,29 @@ const UserSetting: NextPage<Props> = ({ user }) => {
 
         <h1 className="text-center p-4">プロフィール設定</h1>
 
+        {
+          updateSuccess ?
+            <p className="text-center text-red border-red border-2 rounded p-1">
+              登録完了しました
+              <button className="pl-4" onClick={() => setUpdateSuccess(false)}>
+                <FontAwesomeIcon icon="times" />
+              </button>
+            </p>
+            :
+            ""
+        }
+
         <Formik
-          // TODO
-          initialValues={{ img: null, name: name, twitter: twitter, text: profile }}
+          initialValues={{ img: null, name: name, twitter: twitter, description: description }}
           validationSchema={validation()}
-          // TODO
           onSubmit={(values) => {
-            console.log(values)
+            axios.put(`${process.env.ACCOMPLIST_API_BROWSER}/users/${id}`, values)
+              .then(function (response) {
+                setUpdateSuccess(true)
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
           }}
         >
           {(props) => (
@@ -93,17 +111,17 @@ const UserSetting: NextPage<Props> = ({ user }) => {
 
               <div className="pt-4">
                 <div>
-                  <label htmlFor="text">プロフィール文</label>
+                  <label htmlFor="description">プロフィール文</label>
                 </div>
                 <textarea
                   className="rounded border border-beige w-full text-black p-1"
-                  id="text"
-                  name="text"
-                  value={props.values.text}
+                  id="description"
+                  name="description"
+                  value={props.values.description}
                   onChange={props.handleChange}
                   rows={4}
                 />
-                <p className="text-sm text-red">{props.errors.text}</p>
+                <p className="text-sm text-red">{props.errors.description}</p>
               </div>
 
               <button type="submit" className="button w-full p-1 my-1 py-2">
@@ -112,9 +130,9 @@ const UserSetting: NextPage<Props> = ({ user }) => {
             </form>
           )}
         </Formik>
-        <Link href="/users/[user-id]" as="/users/1">
+        <Link href="/users/[user-id]" as={`/users/${id}`}>
           <a>
-            <button className="w-full bg-blue text-beige hover:bg-red p-1 rounded">キャンセル</button>
+            <button className="w-full bg-blue text-beige hover:bg-red p-1 rounded">戻る</button>
           </a>
         </Link>
       </div>
