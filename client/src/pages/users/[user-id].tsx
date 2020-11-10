@@ -15,7 +15,7 @@ type Props = {
   lists: List[];
 }
 
-const Home: NextPage<Props> = ({ user, lists }) => {
+const UserPage: NextPage<Props> = ({ user, lists }) => {
   return (
     <>
       < Layout >
@@ -55,4 +55,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-export default Home;
+export default UserPage;
