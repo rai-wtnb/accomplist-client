@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import TodoRegister from './TodoRegister';
 import List from '../types/list'
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
 
 const ListIndex: FC<Props> = ({ lists }) => {
   return (
-    <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
+    <div className="divide-y divide-beige">
       <h1 className="pb-4 text-center">AccompList</h1>
 
       {lists.map(list => {
@@ -53,7 +52,7 @@ const ListIndex: FC<Props> = ({ lists }) => {
 
               <div>
                 <FontAwesomeIcon
-                  className="text-xl text-blue hover:text-red cursor-pointer mr-4 mb-4"
+                  className="text-4xl text-blue hover:text-red cursor-pointer mr-4 mb-2 pt-4"
                   icon="trash"
                 />
               </div>
@@ -63,7 +62,6 @@ const ListIndex: FC<Props> = ({ lists }) => {
         )
       })}
 
-      <TodoRegister />
     </div >
   )
 }
