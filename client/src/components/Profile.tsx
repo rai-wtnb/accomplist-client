@@ -2,15 +2,14 @@ import React, { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
+import User from '../types/user';
+
 type Props = {
-  id: string;
-  name: string;
-  twitter: string;
-  description: string;
-  img: string;
+  user: User;
 }
 
-const Profile: FC<Props> = ({ id, name, twitter, description, img }) => {
+const Profile: FC<Props> = ({ user }) => {
+  const { id, name, twitter, description, img } = user;
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
       <div className="grid grid-cols-6">
@@ -54,8 +53,8 @@ const Profile: FC<Props> = ({ id, name, twitter, description, img }) => {
             :
             ""
         }
-        <p className="pr-12">フォロワー:400</p>
-        <p className="pr-4">フォロー:420</p>
+        <p className="pr-12">フォロワー:-</p>
+        <p className="pr-4">フォロー:-</p>
       </div>
 
       <div className="py-8">
