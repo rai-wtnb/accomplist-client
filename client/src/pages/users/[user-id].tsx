@@ -8,6 +8,7 @@ import Profile from '../../components/Profile';
 import ListIndex from '../../components/ListIndex';
 import User from '../../types/user';
 import List from '../../types/list';
+import TodoRegister from '../../components/TodoRegister';
 
 type Props = {
   user: User;
@@ -21,11 +22,13 @@ const Home: NextPage<Props> = ({ user, lists }) => {
         <Profile user={user} />
 
         <div className="grid grid-cols-3 gap-2 relative py-12">
-          <ListIndex lists={lists} />
+          <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
+            <ListIndex lists={lists} />
+            <TodoRegister id={user.id} />
+          </div>
 
           <Menu />
         </div>
-
       </Layout >
     </>
   );

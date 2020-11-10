@@ -2,37 +2,52 @@ import React, { FC, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+
+type Props = {
+  id: string;
+}
 
 const validation = () =>
   Yup.object().shape({
-    todo: Yup
+    content: Yup
       .string().required('※入力してください')
       .max(100, '※100字以下にしてください')
   });
 
-const TodoRegister: FC = () => {
+const TodoRegister: FC<Props> = ({ id }) => {
   const [registerOpen, setRegisterOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <div>
       {registerOpen ? (
         <div>
           <Formik
-            initialValues={{ todo: '' }}
+            initialValues={{ user_id: id, content: '' }}
             validationSchema={validation()}
-            // TODO
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => {
+              axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/lists`, values)
+                .then(function (response) {
+                  router.push(`/users/${id}`);
+                  values.content = "";
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+            }}
           >
             {(props) => (
               <form onSubmit={props.handleSubmit}>
                 <div className="pt-2">
                   <input
                     className="rounded border border-beige w-full text-black p-1"
-                    name="todo"
-                    value={props.values.todo}
+                    name="content"
+                    value={props.values.content}
                     onChange={props.handleChange}
                   />
-                  <p className="text-sm text-red">{props.errors.todo}</p>
+                  <p className="text-sm text-red">{props.errors.content}</p>
                 </div>
                 <button type="submit" className="button w-full p-1 my-1 py-2">
                   登録
@@ -54,8 +69,9 @@ const TodoRegister: FC = () => {
           >
             <FontAwesomeIcon icon="plus" />
           </p>
-        )}
-    </div>
+        )
+      }
+    </div >
   );
 };
 
