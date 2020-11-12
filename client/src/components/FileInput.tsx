@@ -57,7 +57,7 @@ const FileInput: FC<Props> = ({ setImg, props, existImg, isUser }) => {
             :
             existImg ?
               <img
-                className="rounded object-cover mx-auto object-cover w-2/3"
+                className="rounded mx-auto object-cover w-2/3"
                 src={existImg}
               />
               :
