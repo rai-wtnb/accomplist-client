@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Layout } from '../../../components/layout';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import User from '../../../types/user';
+import User from '../../../utils/types/user';
 import FileInput from '../../../components/FileInput';
 
 type Props = {
@@ -145,7 +145,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const ids: string[] = await res.data;
   const paths = ids.map(id => `/users/setting/${id}`);
   return { paths, fallback: false };
-};
+}
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params['user-id'];
@@ -156,6 +156,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       user
     },
   };
-};
+}
 
 export default UserSetting;

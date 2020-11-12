@@ -6,8 +6,8 @@ import { Layout } from '../../components/layout';
 import Menu from '../../components/Menu';
 import Profile from '../../components/Profile';
 import ListIndex from '../../components/ListIndex';
-import User from '../../types/user';
-import List from '../../types/list';
+import User from '../../utils/types/user';
+import List from '../../utils/types/list';
 import TodoRegister from '../../components/TodoRegister';
 
 type Props = {
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params['user-id'];
   const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
   const user: User = userRes.data;
-  const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/${id}`)
+  const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/users/${id}`)
   const lists = listRes.data;
   return {
     props: {

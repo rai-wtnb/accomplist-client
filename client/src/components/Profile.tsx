@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
-import User from '../types/user';
+import User from '../utils/types/user';
 
 type Props = {
   user: User;

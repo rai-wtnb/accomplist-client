@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 
-import List from '../types/list'
+import List from '../utils/types/list'
 import axios from 'axios';
 
 type Props = {
@@ -22,16 +22,20 @@ const ListIndex: FC<Props> = ({ lists }) => {
           <div key={list.ID} className="grid grid-cols-9">
 
             <div className="col-span-1 pt-4">
-              <Link href="/lists/[list-id]" as={`/lists/${list.ID}`}>
-                <a className="align-middle pr-2 text-blue text-3xl hover:text-red">
-                  {
-                    list.done ?
+              {
+                list.done ?
+                  <Link href="/lists/[list-id]" as={`/lists/${list.ID}`}>
+                    <a className="align-middle pr-2 text-blue text-3xl hover:text-red">
                       <FontAwesomeIcon icon={["far", "check-square"]} />
-                      :
+                    </a>
+                  </Link>
+                  :
+                  <Link href="/lists/setting/[list-id]" as={`/lists/setting/${list.ID}`}>
+                    <a className="align-middle pr-2 text-blue text-3xl hover:text-red">
                       <FontAwesomeIcon icon={['far', 'square']} />
-                  }
-                </a>
-              </Link>
+                    </a>
+                  </Link>
+              }
             </div>
 
             <div className="col-span-5">
@@ -59,7 +63,10 @@ const ListIndex: FC<Props> = ({ lists }) => {
                   className="text-4xl text-blue hover:text-red cursor-pointer mr-4 mb-2 pt-4"
                   icon="trash"
                   onClick={() => {
-                    axios.delete(`${process.env.ACCOMPLIST_API_BROWSER}/lists/${String(list.ID)}`)
+                    axios.delete(`${process.env.ACCOMPLIST_API_BROWSER}/lists/specific/${String(list.ID)}`)
+                    if (list.done) {
+                      axios.delete(`${process.env.ACCOMPLIST_API_BROWSER}/feedbacks/${String(list.ID)}`)
+                    }
                     router.push(`/users/${list.user_id}`);
                   }}
                 />
