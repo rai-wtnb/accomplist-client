@@ -1,22 +1,24 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 import { Layout } from '../components/layout';
 
-const validation = () =>
-  Yup.object().shape({
-    email: Yup
-      .string()
-      .email('※メールアドレスの形式が正しくありません')
-      .required('※メールアドレスを入力してください'),
-    password: Yup
-      .string()
-      .oneOf([Yup.ref('password')], 'passwordが一致しません。')
-      .required('※パスワードを入力してください'),
-  });
-
 export default function Login() {
+  const router = useRouter();
+  const validation = () =>
+    Yup.object().shape({
+      email: Yup
+        .string()
+        .email('※メールアドレスの形式が正しくありません')
+        .required('※メールアドレスを入力してください'),
+      password: Yup
+        .string()
+        .required('※パスワードを入力してください'),
+    });
+
   return (
     <Layout>
       <div className="rounded bg-blue h-100 w-auto md:w-1/2 mx-auto my-20 py-32 px-10 text-beige">
@@ -24,7 +26,33 @@ export default function Login() {
         <Formik
           initialValues={{ email: '', password: '' }}
           validationSchema={validation()}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            const params = new URLSearchParams();
+            params.append("email", values.email)
+            params.append("password", values.password)
+            axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/login`, params)
+              .then((res) => {
+                // todo
+                const sessionID = res.data.sessionID;
+                const userID = res.data.userID;
+                document.cookie = `userID=${userID}`;
+                document.cookie = `sessionID=${sessionID}`;
+
+                let cookies = document.cookie;
+                let cookiesArray = cookies.split(';');
+                for (let c of cookiesArray) {
+                  let cArray = c.split('=');
+                  if (cArray[0] == 'userID') {
+                    router.push(`/users/${cArray}`)
+                  }
+                }
+              })
+              .catch(function (error) {
+                // todo
+                console.log(error);
+              })
+          }
+          }
         >
           {(props) => (
             <form onSubmit={props.handleSubmit}>
