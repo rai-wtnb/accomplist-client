@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export const Header: FC = () => {
+  const router = useRouter();
+
   return (
     <header className="header">
 
@@ -9,8 +13,15 @@ export const Header: FC = () => {
 
       {
         true ?
-          <Link href="/login">
-            <a className="button float-right ml-5 bg-blue">ログアウト</a>
+          <Link href="/">
+            <a
+              className="button float-right ml-5 bg-blue"
+              onClick={() => {
+                axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/logout`)
+                document.cookie = 'userID="none"; max-age=0';
+                document.cookie = 'sessionID="none"; max-age=0';
+              }}
+            >ログアウト</a>
           </Link>
           :
           <>
@@ -18,6 +29,7 @@ export const Header: FC = () => {
               <a className="button float-right ml-5">ログイン</a>
             </Link>
 
+            {/* TODO */}
             <Link href="/login">
               <a className="button float-right ml-5">テストユーザーでログイン</a>
             </Link>
@@ -28,6 +40,6 @@ export const Header: FC = () => {
           </>
       }
 
-    </header>
+    </header >
   );
 };

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 import { Layout } from '../components/layout';
 
 export default function SignUp() {
+  const router = useRouter();
   const validation = () =>
     Yup.object().shape({
       id: Yup
@@ -48,7 +51,16 @@ export default function SignUp() {
         <Formik
           initialValues={{ id: '', name: '', email: '', password: '' }}
           validationSchema={validation()}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values) => {
+            axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/signup`, values)
+              .then((res) => {
+                // router.push(`/users/${}`)
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          }}
         >
           {(props) => (
             <form onSubmit={props.handleSubmit}>
@@ -61,7 +73,7 @@ export default function SignUp() {
                   onChange={props.handleChange}
                 />
                 <p className="text-xs pt-1">英数字と「_」(アンダーバー)のみで作成してください</p>
-                <p className="text-xs pt-1">(例: sample_user1)</p>
+                <p className="text-xs pt-1">( 例: sample_user1 )</p>
                 <p className="text-sm text-red">{props.errors.id}</p>
               </div>
 
@@ -109,6 +121,6 @@ export default function SignUp() {
           )}
         </Formik>
       </div>
-    </Layout>
+    </Layout >
   );
 }

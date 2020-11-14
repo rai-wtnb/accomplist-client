@@ -41,7 +41,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params, previewData }) => {
+  console.log(previewData)
   const id = params['user-id'];
   const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
   const user: User = userRes.data;
