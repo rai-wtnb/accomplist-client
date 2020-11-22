@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/router';
@@ -16,7 +17,7 @@ export default function SignUp() {
         .matches(/^[a-zA-Z0-9_]+$/, { message: '※英数字と「_」のみ有効です' })
         .max(20, '※IDは20字以下にしてください')
         .test('id-test', '※すでに使用されています', (value) => {
-          if (value === "aaaaaa") {
+          if (value === "rai") {
             return false;
           } else {
             return true;
@@ -31,7 +32,7 @@ export default function SignUp() {
         .email('※メールアドレスの形式が正しくありません')
         .required('※メールアドレスを入力してください')
         .test('email-test', '※すでに登録されています', (value) => {
-          if (value === "aaa@aaa.com") {
+          if (value === "rai") {
             return false;
           } else {
             return true;
@@ -120,6 +121,14 @@ export default function SignUp() {
             </form>
           )}
         </Formik>
+
+        <div className="text-center mt-8 hover:text-red">
+          <Link href="/login">
+            <a>
+              アカウントを既にお持ちの方はこちら
+            </a>
+          </Link>
+        </div>
       </div>
     </Layout >
   );

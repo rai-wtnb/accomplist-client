@@ -9,6 +9,7 @@ import { Layout } from '../../../components/layout';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import User from '../../../utils/types/user';
 import FileInput from '../../../components/FileInput';
+import { getSessionCookie } from '../../../utils/mycookie';
 
 type Props = {
   user: User;
@@ -18,6 +19,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
   const { id, name, twitter, description, img } = user;
   const [profImg, setProfImg] = useState<string>(img);
   const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
+  const sessionID = getSessionCookie();
 
   const validation = () =>
     Yup.object().shape({
@@ -52,7 +54,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
         }
 
         <Formik
-          initialValues={{ img: null, name: name, twitter: twitter, description: description }}
+          initialValues={{ img: img, name: name, twitter: twitter, description: description, sess: sessionID }}
           validationSchema={validation()}
           onSubmit={(values) => {
             axios.put(`${process.env.ACCOMPLIST_API_BROWSER}/users/${id}`, values)
@@ -60,6 +62,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
                 setUpdateSuccess(true)
               })
               .catch(function (error) {
+                // TODO
                 console.log(error);
               });
           }}
@@ -136,7 +139,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
           </a>
         </Link>
       </div>
-    </Layout>
+    </Layout >
   );
 }
 

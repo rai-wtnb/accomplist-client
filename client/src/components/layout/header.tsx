@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
+import { divideCookie } from '../../utils/mycookie';
+
 export const Header: FC = () => {
   const router = useRouter();
 
@@ -17,9 +19,17 @@ export const Header: FC = () => {
             <a
               className="button float-right ml-5 bg-blue"
               onClick={() => {
-                axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/logout`)
-                document.cookie = 'userID="none"; max-age=0';
-                document.cookie = 'sessionID="none"; max-age=0';
+                const content = divideCookie();
+                axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/logout`, {
+                  headers: {
+                    Cookie: `userID=${content["userID"]}`
+                  },
+                  withCredentials: true
+                })
+                  .then(() => {
+                    document.cookie = 'userID="none"; max-age=0';
+                    document.cookie = 'sessionID="none"; max-age=0';
+                  })
               }}
             >ログアウト</a>
           </Link>
