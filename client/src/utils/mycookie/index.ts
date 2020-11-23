@@ -15,11 +15,16 @@ export const divideCookie = () => {
 }
 
 export const setCookies = (userID: string, sessionID: string) => {
-  document.cookie = `userID=${userID}; max-age=86400 secure;`;
-  document.cookie = `sessionID=${sessionID}; max-age=86400 secure;`;
+  document.cookie = `userID=${userID}; max-age=86400`;
+  document.cookie = `sessionID=${sessionID}; max-age=86400`;
 }
 
 export const getSessionCookie = (ctx?: NextPageContext) => {
   const cookie = parseCookies(ctx).sessionID;
+  return cookie;
+}
+
+export const getUserCookie = (ctx?: NextPageContext) => {
+  const cookie = parseCookies(ctx).userID;
   return cookie;
 }

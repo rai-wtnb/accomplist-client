@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/router';
 
 import { Layout } from '../../../components/layout';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import User from '../../../utils/types/user';
 import FileInput from '../../../components/FileInput';
-import { getSessionCookie } from '../../../utils/mycookie';
+import { getUserCookie, getSessionCookie } from '../../../utils/mycookie';
 
 type Props = {
   user: User;
@@ -20,6 +21,12 @@ const UserSetting: NextPage<Props> = ({ user }) => {
   const [profImg, setProfImg] = useState<string>(img);
   const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
   const sessionID = getSessionCookie();
+  const router = useRouter();
+  const userID = getUserCookie();
+
+  useEffect(() => {
+    userID !== id && router.push(`/users/${userID}`) && alert("許可されていません");
+  }, [])
 
   const validation = () =>
     Yup.object().shape({
