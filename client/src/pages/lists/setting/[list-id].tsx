@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
@@ -10,6 +10,7 @@ import { Layout } from '../../../components/layout';
 import FileInput from '../../../components/FileInput';
 import List from '../../../utils/types/list';
 import Feedback from '../../../utils/types/feedback';
+import { getUserCookie } from '../../../utils/mycookie';
 
 const validation = () =>
   Yup.object().shape({
@@ -26,13 +27,20 @@ const validation = () =>
 type Props = {
   list: List;
   feedback: Feedback;
-  userID: string;
+  listUserID: string;
 }
 
-const ListSetting: NextPage<Props> = ({ list, feedback, userID }) => {
+const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
   const { ID, img, title, body } = feedback;
   const [feedbackImg, setFeedbackImg] = useState<string>(img);
   const router = useRouter();
+  const userID = getUserCookie();
+  console.log(userID)
+  console.log(list.user_id)
+
+  useEffect(() => {
+    userID !== list.user_id && router.push(`/users/${userID}`) && alert("設定ページは自分のアカウント情報以外アクセスできません");
+  }, [])
 
   return (
     <Layout>
@@ -114,7 +122,7 @@ const ListSetting: NextPage<Props> = ({ list, feedback, userID }) => {
         </Formik>
 
         <div className="px-2 pb-2">
-          <Link href="/users/[user-id]" as={`/users/${userID}`}>
+          <Link href="/users/[user-id]" as={`/users/${listUserID}`}>
             <a>
               <button className="w-full bg-blue text-beige hover:bg-red py-1 rounded">キャンセル</button>
             </a>
@@ -137,7 +145,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params['list-id'];
   const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/specific/${id}`)
   const list: List = listRes.data;
-  const userID = list.user_id;
+  const listUserID = list.user_id;
   if (list.done === true) {
     const feedbackRes = await axios.get(`${process.env.ACCOMPLIST_API}/feedbacks/${id}`)
     const feedback: Feedback = feedbackRes.data;
@@ -145,7 +153,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: {
         list,
         feedback,
-        userID,
+        listUserID,
       },
     }
   } else {
@@ -163,7 +171,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       props: {
         list,
         feedback,
-        userID,
+        listUserID,
       }
     }
   };
