@@ -44,7 +44,6 @@ export default function Login() {
             params.append("password", values.password)
             axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/login`, params)
               .then((res) => {
-                console.log(res);
                 const userID = res.data.userID;
                 const sessionID = res.data.sessionID;
                 setCookies(userID, sessionID)

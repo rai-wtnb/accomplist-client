@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { Layout } from '../components/layout';
+import { divideCookie, setCookies } from '../utils/mycookie';
 
 export default function SignUp() {
   const router = useRouter();
@@ -55,11 +56,15 @@ export default function SignUp() {
           onSubmit={(values) => {
             axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/signup`, values)
               .then((res) => {
-                // router.push(`/users/${}`)
-                console.log(res)
+                const userID = res.data.userID;
+                const sessionID = res.data.sessionID;
+                setCookies(userID, sessionID)
+
+                const content = divideCookie();
+                router.push(`/users/${content["userID"]}`)
               })
-              .catch((err) => {
-                console.log(err)
+              .catch(() => {
+                console.log("ユーザーIDが既に使用されています。")
               })
           }}
         >

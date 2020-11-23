@@ -9,6 +9,7 @@ import ListIndex from '../../components/ListIndex';
 import User from '../../utils/types/user';
 import List from '../../utils/types/list';
 import TodoRegister from '../../components/TodoRegister';
+import { getUserCookie } from '../../utils/mycookie';
 
 type Props = {
   user: User;
@@ -16,6 +17,8 @@ type Props = {
 }
 
 const UserPage: NextPage<Props> = ({ user, lists }) => {
+  const userID = getUserCookie();
+
   return (
     <>
       < Layout >
@@ -23,11 +26,19 @@ const UserPage: NextPage<Props> = ({ user, lists }) => {
 
         <div className="grid grid-cols-3 gap-2 relative py-12">
           <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
-            <ListIndex lists={lists} />
-            <TodoRegister id={user.id} />
+            <ListIndex
+              lists={lists}
+              userID={userID}
+            />
+            {
+              userID == user.id ?
+                <TodoRegister id={user.id} />
+                :
+                ""
+            }
           </div>
 
-          <Menu />
+          <Menu userID={userID} />
         </div>
       </Layout >
     </>

@@ -5,33 +5,34 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 type MenuProps = {
   className?: string;
+  userID: string;
 };
 
-const menuItems = [
-  {
-    icon: 'user',
-    name: 'マイページ',
-    href: '/users/[user-id]',
-    as: '/users/2',
-  },
-  {
-    icon: 'medal',
-    name: '話題のAccomLister',
-    href: '/',
-  },
-  {
-    icon: 'hands-helping',
-    name: '友達のリスト',
-    href: '/',
-  },
-  {
-    icon: 'bell',
-    name: 'お知らせ',
-    href: '/',
-  },
-];
+const Menu: FC<MenuProps> = ({ userID }) => {
+  const menuItems = [
+    {
+      icon: 'user',
+      name: 'マイページ',
+      href: '/users/[user-id]',
+      as: `/users/${userID}`,
+    },
+    {
+      icon: 'medal',
+      name: '話題のAccomLister',
+      href: '/',
+    },
+    {
+      icon: 'hands-helping',
+      name: '友達のリスト',
+      href: '/',
+    },
+    {
+      icon: 'bell',
+      name: 'お知らせ',
+      href: '/',
+    },
+  ];
 
-const Menu: FC<MenuProps> = () => {
   return (
     <div className="h-48 rounded text-beige p-2 divide-y divide-beige sticky top-custom">
       {menuItems.map((item) => {

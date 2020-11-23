@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
 import User from '../utils/types/user';
+import { getUserCookie } from '../utils/mycookie';
 
 type Props = {
   user: User;
@@ -10,6 +11,8 @@ type Props = {
 
 const Profile: FC<Props> = ({ user }) => {
   const { id, name, twitter, description, img } = user;
+  const userID = getUserCookie();
+
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
       <div className="grid grid-cols-6">
@@ -36,12 +39,16 @@ const Profile: FC<Props> = ({ user }) => {
       </div>
 
       <div className="flex flex-row-reverse pr-2">
-        <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
-          <a>
-            <button className="text-beige bg-blue rounded px-2 py-2 cursor-pointer inline hover:bg-red text-beige">設定</button>
-          </a>
-        </Link>
-        <button className="text-beige bg-blue rounded px-2 py-2 cursor-pointer inline mx-2 hover:bg-red text-beige">フォローする</button>
+        {
+          userID == user.id ?
+            <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
+              <a>
+                <button className="text-beige bg-blue rounded px-2 py-2 cursor-pointer inline mx-2 hover:bg-red text-beige">設定</button>
+              </a>
+            </Link>
+            :
+            <button className="text-beige bg-blue rounded px-2 py-2 cursor-pointer inline mx-2 hover:bg-red text-beige">フォローする</button>
+        }
         {
           twitter ?
             <a href={`https://twitter.com/${twitter}`}>
@@ -53,7 +60,7 @@ const Profile: FC<Props> = ({ user }) => {
             :
             ""
         }
-        <p className="pr-12">フォロワー:-</p>
+        <p className="pr-4">フォロワー:-</p>
         <p className="pr-4">フォロー:-</p>
       </div>
 

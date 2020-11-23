@@ -9,6 +9,7 @@ import Menu from '../../components/Menu';
 import List from '../../utils/types/list';
 import Feedback from '../../utils/types/feedback';
 import User from '../../utils/types/user';
+import { getUserCookie } from '../../utils/mycookie';
 
 type Props = {
   feedback: Feedback;
@@ -16,6 +17,8 @@ type Props = {
 }
 
 const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
+  const userID = getUserCookie();
+
   return (
     <Layout>
       <div className="grid grid-cols-3 gap-2 py-12">
@@ -46,12 +49,17 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
             <div className="flex flex-row-reverse p-2">
               <FontAwesomeIcon className="m-2 text-red text-3xl cursor-pointer hover:opacity-90" icon="heart" />
               <FontAwesomeIcon className="m-2 text-blue text-3xl hover:text-red cursor-pointer" icon={['far', 'heart']} />
-              {/* 三項演算 */}
-              <Link href="/lists/setting/[list-id]" as={`/lists/setting/${feedback.list_id}`}>
-                <a>
-                  <button className="text-beige bg-blue hover:bg-red rounded py-1 px-2 m-2">編集</button>
-                </a>
-              </Link>
+
+              {
+                userID == user.id ?
+                  <Link href="/lists/setting/[list-id]" as={`/lists/setting/${feedback.list_id}`}>
+                    <a>
+                      <button className="text-beige bg-blue hover:bg-red rounded py-1 px-2 m-2">編集</button>
+                    </a>
+                  </Link>
+                  :
+                  ""
+              }
             </div>
           </div>
 
