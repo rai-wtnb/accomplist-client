@@ -24,27 +24,45 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
       <div className="grid grid-cols-3 gap-2 py-12">
 
         <div className="col-span-2">
-          <div className="rounded border-beige border-2">
+          <div className="rounded border-beige border-2 p-2">
 
-            <div className="rounded hover:opacity-75">
-              <Link href="/users/[user-id]" as={`/users/${user.id}`}>
-                <a>
-                  <img className="rounded p-2 inline" src={user.img} />
-                  <h1 className="inline align-middle">{user.name}</h1>
-                </a>
-              </Link>
-            </div>
-            <div>
+            <Link href="/users/[user-id]" as={`/users/${user.id}`}>
+              <a>
+                <span className="grid grid-cols-7 hover:opacity-75">
+                  <span className="col-span-2 h-32 w-32 rounded bg-beige inline-block">
+                    {
+                      user.img ?
+                        <img
+                          className="rounded object-cover h-32 w-full"
+                          src={String(user.img)}
+                        />
+                        :
+                        <span className="flex justify-center pt-8">
+                          <FontAwesomeIcon
+                            className="text-7xl text-blue items-center"
+                            icon="user"
+                          />
+                        </span>
+                    }
+                  </span>
+                  <span className="col-span-5">
+                    <h1 className="inline-block pt-10 pl-10">{user.name}</h1>
+                  </span>
+                </span>
+              </a>
+            </Link>
+
+            <div className="pt-12 pb-2">
               <img
-                className="p-2 w-full object-cover"
-                src={feedback.img}
+                className="w-full object-cover rounded"
+                src={String(feedback.img)}
               />
             </div>
-            <h1 className="p-2">{feedback.title}</h1>
-            <p className="pl-2 text-sm">{feedback.CreatedAt}</p>
-            <p className="p-2">
+            <h1 >{feedback.title}</h1>
+            <p className="py-4">
               {feedback.body}
             </p>
+            <p className="text-sm">{feedback.CreatedAt}</p>
 
             <div className="flex flex-row-reverse p-2">
               <FontAwesomeIcon className="m-2 text-red text-3xl cursor-pointer hover:opacity-90" icon="heart" />
@@ -109,7 +127,7 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
           </div> */}
         </div>
 
-        <Menu />
+        <Menu userID={userID} />
       </div>
     </Layout>
   );

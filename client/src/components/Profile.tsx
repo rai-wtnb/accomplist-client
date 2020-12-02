@@ -21,7 +21,7 @@ const Profile: FC<Props> = ({ user }) => {
             img ?
               <img
                 className="rounded object-cover h-32 w-full"
-                src={img}
+                src={String(img)}
               />
               :
               <div className="flex justify-center pt-8">
@@ -38,22 +38,22 @@ const Profile: FC<Props> = ({ user }) => {
         </div>
       </div>
 
-      <div className="flex flex-row-reverse pr-2">
+      <div className="flex flex-row-reverse pr-2 items-center">
         {
           userID == user.id ?
             <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
               <a>
-                <button className="text-beige bg-blue rounded px-2 py-2 cursor-pointer inline mx-2 hover:bg-red text-beige">設定</button>
+                <span className="text-beige bg-blue rounded px-2 py-2 cursor-pointer mx-2 hover:bg-red">設定</span>
               </a>
             </Link>
             :
-            <button className="text-beige bg-blue rounded px-2 py-2 cursor-pointer inline mx-2 hover:bg-red text-beige">フォローする</button>
+            <span className="text-beige bg-blue rounded px-2 py-2 cursor-pointer mx-2 hover:bg-red">フォローする</span>
         }
         {
           twitter ?
             <a href={`https://twitter.com/${twitter}`}>
               <FontAwesomeIcon
-                className="text-4xl cursor-pointer text-blue align-middle hover:text-red"
+                className="text-4xl cursor-pointer text-blue hover:text-red"
                 icon={["fab", "twitter-square"]}
               />
             </a>

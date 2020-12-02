@@ -4,7 +4,7 @@ type Feedback = {
   UpdatedAt: Date;
   user_id: string;
   list_id: string;
-  img: string;
+  img?: File;
   title: string;
   body: string;
 }

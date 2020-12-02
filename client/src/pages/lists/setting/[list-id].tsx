@@ -32,11 +32,9 @@ type Props = {
 
 const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
   const { ID, img, title, body } = feedback;
-  const [feedbackImg, setFeedbackImg] = useState<string>(img);
+  const [feedbackImg, setFeedbackImg] = useState<File>(img);
   const router = useRouter();
   const userID = getUserCookie();
-  console.log(userID)
-  console.log(list.user_id)
 
   useEffect(() => {
     userID !== list.user_id && router.push(`/users/${userID}`) && alert("設定ページは自分のアカウント情報以外アクセスできません");
@@ -51,14 +49,53 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
           initialValues={{ user_id: list.user_id, list_id: list.ID, img: img, title: title, body: body }}
           validationSchema={validation()}
           onSubmit={(values) => {
+            const jsonData = {
+              user_id: values.user_id,
+              list_id: values.list_id,
+              title: values.title,
+              body: values.body,
+            }
+
             if (list.done === true) {
-              axios.put(`${process.env.ACCOMPLIST_API_BROWSER}/feedbacks/${ID}`, values)
+              // update
+              axios.put(
+                `${process.env.ACCOMPLIST_API_BROWSER}/feedbacks/${ID}`, jsonData)
+                .then(() => {
+                  if (values.img) {
+                    let data = new FormData();
+                    data.append("img", values.img);
+                    axios.put(
+                      `${process.env.ACCOMPLIST_API_BROWSER}/feedbacks/${list.ID}/img`,
+                      data,
+                      {
+                        headers: {
+                          'content-type': 'multipart/form-data',
+                        },
+                      }
+                    )
+                  }
+                })
                 .then(() => {
                   router.push(`/lists/${list.ID}`)
                 })
+                .catch((err) => console.log(err))
             } else {
-              axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/feedbacks`, values)
+              // create
+              axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/feedbacks`, jsonData)
                 .then(() => {
+                  if (values.img) {
+                    let data = new FormData();
+                    data.append("img", values.img);
+                    axios.put(
+                      `${process.env.ACCOMPLIST_API_BROWSER}/feedbacks/${list.ID}/img`,
+                      data,
+                      {
+                        headers: {
+                          'content-type': 'multipart/form-data',
+                        },
+                      }
+                    )
+                  }
                   const updateList = {
                     ID: list.ID,
                     user_id: list.user_id,
@@ -66,8 +103,11 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
                     done: true,
                   }
                   axios.put(`${process.env.ACCOMPLIST_API_BROWSER}/lists/specific/${list.ID}`, updateList)
+                })
+                .then(() => {
                   router.push(`/lists/${list.ID}`);
                 })
+                .catch((err) => { console.log(err) })
             }
           }}
         >
@@ -130,7 +170,7 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
         </div>
 
       </div>
-    </Layout>
+    </Layout >
   );
 }
 
@@ -163,7 +203,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       UpdatedAt: null,
       user_id: "",
       list_id: "",
-      img: "",
+      img: null,
       title: "",
       body: "",
     };
