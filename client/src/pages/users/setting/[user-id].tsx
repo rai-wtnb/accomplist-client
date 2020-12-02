@@ -25,7 +25,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
   const userID = getUserCookie();
 
   useEffect(() => {
-    userID !== id && router.push(`/users/${userID}`) && alert("許可されていません");
+    userID !== id && router.push(`/users/${userID}`) && alert("設定ページは自分のアカウント情報以外アクセスできません");
   }, [])
 
   const validation = () =>
