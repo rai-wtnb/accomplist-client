@@ -21,26 +21,6 @@ const UserSetting: NextPage<Props> = ({ user }) => {
   const [profImg, setProfImg] = useState<File>(img);
   const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
   const sessionID = getSessionCookie();
-  const router = useRouter();
-  const userID = getUserCookie();
-
-  useEffect(() => {
-    userID !== id && router.push(`/users/${userID}`) && alert("許可されていません");
-  }, [])
-
-  const validation = () =>
-    Yup.object().shape({
-      name: Yup
-        .string().required('※入力してください')
-        .max(30, '※名前は30字以下にしてください'),
-      twitter: Yup
-        .string()
-        .max(20, '※Twitterのユーザー名は15字以下です'),
-      description: Yup
-        .string()
-        .max(200, '※プロフィールが長すぎます(200字以下)')
-    });
-
 
   return (
     <Layout>
@@ -64,6 +44,11 @@ const UserSetting: NextPage<Props> = ({ user }) => {
           initialValues={{ img: img, name: name, twitter: twitter, description: description, sess: sessionID }}
           validationSchema={validation()}
           onSubmit={(values) => {
+            console.log({
+              fileName: values.img.name,
+              type: values.img.type,
+              size: `${values.img.size} bytes`
+            })
             axios.put(
               `${process.env.ACCOMPLIST_API_BROWSER}/users/${id}`,
               {
@@ -74,28 +59,24 @@ const UserSetting: NextPage<Props> = ({ user }) => {
               },
             )
               .then(() => {
-                if (values.img) {
-                  let data = new FormData();
-                  data.append("img", values.img);
+                values.img ?
                   axios.put(`${process.env.ACCOMPLIST_API_BROWSER}/users/${id}/img`,
-                    data,
                     {
-                      headers: {
-                        'Content-Type': 'multipart/form-data',
-                      },
+                      img: values.img
+                    },
+                    {
+                      headers: { 'Content-Type': 'multipart/form-data' },
                     }
                   )
-                    .then((res) => {
+                    .then(() => {
                       setUpdateSuccess(true)
-                      console.log(res)
                     })
                     .catch((error) => {
                       // TODO
                       console.log(error)
                     })
-                } else {
+                  :
                   setUpdateSuccess(true)
-                }
               })
               .catch((error) => {
                 // TODO
