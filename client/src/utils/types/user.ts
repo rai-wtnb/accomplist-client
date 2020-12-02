@@ -3,7 +3,7 @@ type User = {
   name: string;
   twitter?: string;
   description?: string;
-  img?: string;
+  img?: File;
 }
 
 export default User;

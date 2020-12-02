@@ -3,9 +3,9 @@ import { FormikProps } from "formik";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
-  setImg: React.Dispatch<string>;
+  setImg: React.Dispatch<File>;
   props: FormikProps<any>;
-  existImg: string;
+  existImg: File;
   isUser: boolean;
 }
 
@@ -34,6 +34,7 @@ const FileInput: FC<Props> = ({ setImg, props, existImg, isUser }) => {
         name="img"
         id="img"
         type="file"
+        accept="image/*"
         onChange={e => {
           handleChangeFile(e);
           props.setFieldValue("img", e.currentTarget.files[0]);
@@ -45,7 +46,7 @@ const FileInput: FC<Props> = ({ setImg, props, existImg, isUser }) => {
             existImg ?
               <img
                 className="rounded object-cover h-32 w-full"
-                src={existImg}
+                src={String(existImg)}
               />
               :
               <div className="flex justify-center pt-8">
@@ -58,7 +59,7 @@ const FileInput: FC<Props> = ({ setImg, props, existImg, isUser }) => {
             existImg ?
               <img
                 className="rounded mx-auto object-cover w-2/3"
-                src={existImg}
+                src={String(existImg)}
               />
               :
               <img className="p-2 mx-auto" src="https://via.placeholder.com/600x400" />
