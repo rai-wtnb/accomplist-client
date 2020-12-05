@@ -27,8 +27,8 @@ export const Header: FC = () => {
                   withCredentials: true
                 })
                   .then(() => {
-                    document.cookie = 'userID="none"; max-age=0';
-                    document.cookie = 'sessionID="none"; max-age=0';
+                    document.cookie = 'userID="none"; max-age=0; path=/';
+                    document.cookie = 'sessionID="none"; max-age=0; path=/';
                   })
               }}
             >ログアウト</a>

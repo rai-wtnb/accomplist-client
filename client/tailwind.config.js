@@ -13,6 +13,7 @@ module.exports = {
         blue: '#505668',
         beige: '#f1ece1',
         red: '#c05850',
+        notifyBlue: '#2c96ce',
       },
       opacity: {
         '90': '.9',
