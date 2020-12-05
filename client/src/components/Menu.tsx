@@ -18,13 +18,18 @@ const Menu: FC<MenuProps> = ({ userID }) => {
     },
     {
       icon: 'medal',
-      name: '話題のAccomLister',
+      name: '検索',
       href: '/',
     },
     {
       icon: 'hands-helping',
       name: '友達のリスト',
       href: '/',
+    },
+    {
+      icon: 'bell',
+      name: '話題のリスト',
+      href: '/accomplishes/',
     },
     {
       icon: 'bell',

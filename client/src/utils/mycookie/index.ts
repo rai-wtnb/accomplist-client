@@ -15,8 +15,8 @@ export const divideCookie = () => {
 }
 
 export const setCookies = (userID: string, sessionID: string) => {
-  document.cookie = `userID=${userID}; max-age=86400`;
-  document.cookie = `sessionID=${sessionID}; max-age=86400`;
+  document.cookie = `userID=${userID}; max-age=86400; path=/`;
+  document.cookie = `sessionID=${sessionID}; max-age=86400; path=/`;
 }
 
 export const getSessionCookie = (ctx?: NextPageContext) => {

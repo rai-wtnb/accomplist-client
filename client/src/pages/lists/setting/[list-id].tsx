@@ -10,7 +10,7 @@ import { Layout } from '../../../components/layout';
 import FileInput from '../../../components/FileInput';
 import List from '../../../utils/types/list';
 import Feedback from '../../../utils/types/feedback';
-import { getUserCookie } from '../../../utils/mycookie';
+import { getUserCookie, getSessionCookie } from '../../../utils/mycookie';
 
 const validation = () =>
   Yup.object().shape({
@@ -33,11 +33,12 @@ type Props = {
 const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
   const { ID, img, title, body } = feedback;
   const [feedbackImg, setFeedbackImg] = useState<File>(img);
+  const [updateFailed, setUpdateFailed] = useState<boolean>(false);
   const router = useRouter();
   const userID = getUserCookie();
 
   useEffect(() => {
-    userID !== list.user_id && router.push(`/users/${userID}`) && alert("設定ページは自分のアカウント情報以外アクセスできません");
+    userID !== list.user_id && router.push(`/users/${userID}`) && alert("許可されていません。もう1度ログインし直してお試しください。");
   }, [])
 
   return (
@@ -45,15 +46,26 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
       <div className="rounded border-beige border-2 my-12">
         <h1 className="text-center p-2">達成の記録</h1>
 
+        {
+          updateFailed ?
+            < p className="text-center text-red border-red border-2 rounded p-1">
+              登録に失敗しました。もう1度入力内容を確認するか、再度ログインし直してお試しください。
+            </p>
+            :
+            ""
+        }
+
         <Formik
           initialValues={{ user_id: list.user_id, list_id: list.ID, img: img, title: title, body: body }}
           validationSchema={validation()}
           onSubmit={(values) => {
+            const sessionID = getSessionCookie();
             const jsonData = {
               user_id: values.user_id,
               list_id: values.list_id,
               title: values.title,
               body: values.body,
+              sess: sessionID,
             }
 
             if (list.done === true) {
@@ -61,7 +73,7 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
               axios.put(
                 `${process.env.ACCOMPLIST_API_BROWSER}/feedbacks/${ID}`, jsonData)
                 .then(() => {
-                  if (values.img) {
+                  if (values.img !== img) {
                     let data = new FormData();
                     data.append("img", values.img);
                     axios.put(
@@ -78,12 +90,15 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
                 .then(() => {
                   router.push(`/lists/${list.ID}`)
                 })
-                .catch((err) => console.log(err))
+                .catch(() => {
+                  setUpdateFailed(true)
+                  setTimeout(() => setUpdateFailed(false), 5000)
+                })
             } else {
               // create
               axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/feedbacks`, jsonData)
                 .then(() => {
-                  if (values.img) {
+                  if (values.img !== img) {
                     let data = new FormData();
                     data.append("img", values.img);
                     axios.put(
@@ -107,7 +122,10 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
                 .then(() => {
                   router.push(`/lists/${list.ID}`);
                 })
-                .catch((err) => { console.log(err) })
+                .catch(() => {
+                  setUpdateFailed(true)
+                  setTimeout(() => setUpdateFailed(false), 5000)
+                })
             }
           }}
         >

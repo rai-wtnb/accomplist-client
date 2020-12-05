@@ -20,8 +20,9 @@ const UserSetting: NextPage<Props> = ({ user }) => {
   const { id, name, twitter, description, img } = user;
   const [profImg, setProfImg] = useState<File>(img);
   const [updateSuccess, setUpdateSuccess] = useState<boolean>(false);
-  const sessionID = getSessionCookie();
+  const [updateFailed, setUpdateFailed] = useState<boolean>(false);
   const router = useRouter();
+  const sessionID = getSessionCookie();
   const userID = getUserCookie();
 
   useEffect(() => {
@@ -50,11 +51,17 @@ const UserSetting: NextPage<Props> = ({ user }) => {
 
         {
           updateSuccess ?
-            <p className="text-center text-red border-red border-2 rounded p-1">
+
+            < p className="text-center text-notifyBlue border-notifyBlue border-2 rounded p-1">
               登録完了しました
-              <button className="pl-4" onClick={() => setUpdateSuccess(false)}>
-                <FontAwesomeIcon icon="times" />
-              </button>
+            </p>
+            :
+            ""
+        }
+        {
+          updateFailed ?
+            < p className="text-center text-red border-red border-2 rounded p-1">
+              登録に失敗しました。もう1度入力内容を確認するか、再度ログインし直してお試しください。
             </p>
             :
             ""
@@ -74,7 +81,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
               },
             )
               .then(() => {
-                if (values.img) {
+                if (values.img !== img) {
                   let data = new FormData();
                   data.append("img", values.img);
                   axios.put(`${process.env.ACCOMPLIST_API_BROWSER}/users/${id}/img`,
@@ -87,20 +94,22 @@ const UserSetting: NextPage<Props> = ({ user }) => {
                   )
                     .then((res) => {
                       setUpdateSuccess(true)
+                      setTimeout(() => setUpdateSuccess(false), 3000)
                       console.log(res)
                     })
-                    .catch((error) => {
-                      // TODO
-                      console.log(error)
+                    .catch(() => {
+                      setUpdateFailed(true)
+                      setTimeout(() => setUpdateFailed(false), 5000)
                     })
                 } else {
                   setUpdateSuccess(true)
+                  setTimeout(() => setUpdateSuccess(false), 3000)
                 }
               })
-              .catch((error) => {
-                // TODO
-                console.log(error);
-              });
+              .catch(() => {
+                setUpdateFailed(true)
+                setTimeout(() => setUpdateFailed(false), 5000)
+              })
           }}
         >
           {(props) => (
