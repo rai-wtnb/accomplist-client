@@ -1,9 +1,18 @@
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/router';
 
 import { Layout } from '../components/layout';
+import { getUserCookie } from '../utils/mycookie';
 
 export default function Home() {
+  const userID = getUserCookie();
+  const router = useRouter();
+
+  useEffect(() => {
+    userID && router.push(`/users/${userID}`)
+  }, [])
+
   return (
     <Layout>
       <div className="rounded border-2 border-beige text-center my-12">
@@ -56,6 +65,12 @@ export default function Home() {
           <a className="button">テストユーザー</a>
         </Link>
       </div>
+
+      <div className="rounded border-2 border-beige text-center my-12">
+        <h1>みんなの達成の記録を見る</h1>
+        <p>これ以降に無限スクロール or acommplishes/index.tsxページへのLink.</p>
+      </div>
+
     </Layout>
   );
 }

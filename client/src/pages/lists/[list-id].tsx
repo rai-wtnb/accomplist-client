@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { Layout } from '../../components/layout';
@@ -18,6 +19,11 @@ type Props = {
 
 const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
   const userID = getUserCookie();
+  const router = useRouter();
+
+  useEffect(() => {
+    !userID && router.push(`/login`)
+  }, [])
 
   return (
     <Layout>

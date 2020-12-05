@@ -38,7 +38,10 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
   const userID = getUserCookie();
 
   useEffect(() => {
-    userID !== list.user_id && router.push(`/users/${userID}`) && alert("許可されていません。もう1度ログインし直してお試しください。");
+    !userID ?
+      router.push(`/login`)
+      :
+      userID !== list.user_id && router.push(`/`) && alert("許可されていません。ログアウト後、もう1度ログインし直してお試しください。");
   }, [])
 
   return (

@@ -4,16 +4,16 @@ import { DefaultSeo } from 'next-seo';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   fas,
-  faCheckSquare,
   faPlus,
   faTimes,
   faBell,
   faPortrait,
   faHeart,
-  faMedal,
   faHandsHelping,
   faUser,
-  faTrash
+  faTrash,
+  faList,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   fab,
@@ -35,10 +35,11 @@ library.add(
   faBell,
   faPortrait,
   faHeart,
-  faMedal,
   faHandsHelping,
   faUser,
   faTrash,
+  faList,
+  faSearch,
   farSquare,
   farHeart,
   farCheckSquare,

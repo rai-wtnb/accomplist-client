@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 
-import { divideCookie } from '../../utils/mycookie';
+import { divideCookie, getUserCookie } from '../../utils/mycookie';
 
 export const Header: FC = () => {
-  const router = useRouter();
+  const userID = getUserCookie();
 
   return (
     <header className="header">
@@ -14,7 +13,7 @@ export const Header: FC = () => {
       <span className="text-blue text-2xl absolute bottom-0">AccompList.</span>
 
       {
-        true ?
+        userID ?
           <Link href="/">
             <a
               className="button float-right ml-5 bg-blue"
@@ -39,13 +38,13 @@ export const Header: FC = () => {
               <a className="button float-right ml-5">ログイン</a>
             </Link>
 
+            <Link href="/signup">
+              <a className="button float-right ml-5">新規登録</a>
+            </Link>
+
             {/* TODO */}
             <Link href="/login">
               <a className="button float-right ml-5">テストユーザーでログイン</a>
-            </Link>
-
-            <Link href="/signup">
-              <a className="button float-right ml-5">新規登録</a>
             </Link>
           </>
       }

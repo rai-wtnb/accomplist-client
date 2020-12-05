@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import axios from 'axios';
 
@@ -18,6 +19,11 @@ type Props = {
 
 const UserPage: NextPage<Props> = ({ user, lists }) => {
   const userID = getUserCookie();
+  const router = useRouter();
+
+  useEffect(() => {
+    !userID && router.push(`/login`)
+  }, [])
 
   return (
     <>
