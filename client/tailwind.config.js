@@ -5,7 +5,7 @@ module.exports = {
     defaultLineHeights: true,
     standardFontWeights: true,
   },
-  purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
+  purge: ['./src/components/**/*.tsx', './src/pages/**/*.tsx'],
   theme: {
     extend: {
       colors: {
