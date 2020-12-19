@@ -57,8 +57,6 @@ export default function SignUp() {
                 const { userID } = res.data;
                 const { sessionID } = res.data;
                 setCookies(userID, sessionID);
-
-                const content = divideCookie();
                 router.push(`/users/${values.id}`);
               })
               .catch(() => {
