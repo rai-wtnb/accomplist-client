@@ -12,38 +12,32 @@ export default function SignUp() {
   const router = useRouter();
   const validation = () =>
     Yup.object().shape({
-      id: Yup
-        .string()
+      id: Yup.string()
         .required('※IDを入力してください')
         .matches(/^[a-zA-Z0-9_]+$/, { message: '※英数字と「_」のみ有効です' })
         .max(20, '※IDは20字以下にしてください')
         .test('id-test', '※すでに使用されています', (value) => {
-          if (value === "rai") {
+          if (value === 'rai') {
             return false;
-          } else {
-            return true;
           }
+          return true;
         }),
-      name: Yup
-        .string()
+      name: Yup.string()
         .required('※表示名を入力してください')
         .max(30, '※名前は30字以下にしてください'),
-      email: Yup
-        .string()
+      email: Yup.string()
         .email('※メールアドレスの形式が正しくありません')
         .required('※メールアドレスを入力してください')
         .test('email-test', '※すでに登録されています', (value) => {
-          if (value === "rai") {
+          if (value === 'rai') {
             return false;
-          } else {
-            return true;
           }
+          return true;
         }),
-      password: Yup
-        .string()
+      password: Yup.string()
         .required('※パスワードを入力してください')
         .min(6, 'パスワードが短すぎます(6字以上)')
-        .max(50, '50字以下にしてください')
+        .max(50, '50字以下にしてください'),
     });
 
   return (
@@ -54,18 +48,20 @@ export default function SignUp() {
           initialValues={{ id: '', name: '', email: '', password: '' }}
           validationSchema={validation()}
           onSubmit={(values) => {
-            axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/signup`, values)
+            axios
+              .post(
+                `${process.env.ACCOMPLIST_API_BROWSER}/users/signup`,
+                values,
+              )
               .then((res) => {
-                const userID = res.data.userID;
-                const sessionID = res.data.sessionID;
-                setCookies(userID, sessionID)
-
-                const content = divideCookie();
-                router.push(`/users/${content["userID"]}`)
+                const { userID } = res.data;
+                const { sessionID } = res.data;
+                setCookies(userID, sessionID);
+                router.push(`/users/${values.id}`);
               })
               .catch(() => {
-                console.log("ユーザーIDが既に使用されています。")
-              })
+                console.log('エラー');
+              });
           }}
         >
           {(props) => (
@@ -78,7 +74,9 @@ export default function SignUp() {
                   value={props.values.id}
                   onChange={props.handleChange}
                 />
-                <p className="text-xs pt-1">英数字と「_」(アンダーバー)のみで作成してください</p>
+                <p className="text-xs pt-1">
+                  英数字と「_」(アンダーバー)のみで作成してください
+                </p>
                 <p className="text-xs pt-1">( 例: sample_user1 )</p>
                 <p className="text-sm text-red">{props.errors.id}</p>
               </div>
@@ -129,12 +127,10 @@ export default function SignUp() {
 
         <div className="text-center mt-8 hover:text-red">
           <Link href="/login">
-            <a>
-              アカウントを既にお持ちの方はこちら
-            </a>
+            <a>アカウントを既にお持ちの方はこちら</a>
           </Link>
         </div>
       </div>
-    </Layout >
+    </Layout>
   );
 }
