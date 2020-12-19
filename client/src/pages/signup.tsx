@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -6,9 +6,10 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { Layout } from '../components/layout';
-import { divideCookie, setCookies } from '../utils/mycookie';
+import { setCookies } from '../utils/mycookie';
 
 export default function SignUp() {
+  const [flash, setFlash] = useState<boolean>(false)
   const router = useRouter();
   const validation = () =>
     Yup.object().shape({
@@ -44,6 +45,15 @@ export default function SignUp() {
     <Layout>
       <div className="rounded bg-blue h-100 w-auto md:w-1/2 mx-auto my-10 py-20 px-10 text-beige">
         <h1 className="text-center text-2xl pb-10">Welcome.</h1>
+        {
+          flash ?
+            <div className="rounded text-red text-center">
+              <p>※登録に失敗しました。</p>
+              <p>※もう一度確認してください。</p>
+            </div>
+            :
+            ""
+        }
         <Formik
           initialValues={{ id: '', name: '', email: '', password: '' }}
           validationSchema={validation()}
@@ -60,7 +70,8 @@ export default function SignUp() {
                 router.push(`/users/${values.id}`);
               })
               .catch(() => {
-                console.log('エラー');
+                setFlash(true)
+                setTimeout(() => setFlash(false), 4000)
               });
           }}
         >
