@@ -38,13 +38,13 @@ export const Header: FC = () => {
               <a className="button float-right ml-5">ログイン</a>
             </Link>
 
-            <Link href="/signup">
-              <a className="button float-right ml-5">新規登録</a>
-            </Link>
-
             {/* TODO */}
             <Link href="/login">
               <a className="button float-right ml-5">テストユーザーでログイン</a>
+            </Link>
+
+            <Link href="/signup">
+              <a className="button float-right ml-5">新規登録</a>
             </Link>
           </>
       }
