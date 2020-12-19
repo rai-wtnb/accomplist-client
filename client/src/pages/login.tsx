@@ -53,6 +53,7 @@ export default function Login() {
               })
               .catch(() => {
                 setFlash(true)
+                setTimeout(() => setFlash(false), 4000)
               })
           }
           }
