@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 
 import { Layout } from '../../../components/layout';
