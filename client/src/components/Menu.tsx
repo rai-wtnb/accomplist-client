@@ -39,23 +39,42 @@ const Menu: FC<MenuProps> = ({ userID }) => {
   ];
 
   return (
-    <div className="h-48 rounded text-beige p-2 divide-y divide-beige sticky top-custom">
-      {menuItems.map((item) => {
-        return (
-          <Link href={item.href} as={item.as} key={item.name}>
-            <div className="p-4 hover:bg-red bg-blue rounded  cursor-pointer">
-              <a>
-                <FontAwesomeIcon
-                  className="mr-4"
-                  icon={item.icon as IconProp}
-                />
-                {item.name}
-              </a>
-            </div>
-          </Link>
-        );
-      })}
-    </div>
+    <>
+      <div className="hidden h-48 rounded text-beige p-2 divide-y divide-beige sticky top-custom md:block">
+        {menuItems.map((item) => {
+          return (
+            <Link href={item.href} as={item.as} key={item.name}>
+              <div className="p-4 hover:bg-red bg-blue rounded  cursor-pointer md:block">
+                <a>
+                  <FontAwesomeIcon
+                    className="mr-4"
+                    icon={item.icon as IconProp}
+                  />
+                  {item.name}
+                </a>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+      <div className="md:hidden text-beige flex fixed bottom-0 left-0 w-full">
+        {menuItems.map((item) => {
+          return (
+            <Link href={item.href} as={item.as} key={item.name}>
+              <div className="text-xs hover:bg-red text-center w-full bg-blue border-2 border-beige flex-shrink cursor-pointer inline">
+                <a>
+                  <FontAwesomeIcon
+                    className="m-2 text-2xl"
+                    icon={item.icon as IconProp}
+                  /><br />
+                  {item.name}
+                </a>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

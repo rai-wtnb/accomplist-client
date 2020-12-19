@@ -15,8 +15,8 @@ const Profile: FC<Props> = ({ user }) => {
 
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
-      <div className="grid grid-cols-6">
-        <div className="col-span-1 h-32 w-32 rounded bg-beige inline-block">
+      <div className="flex items-center">
+        <div className="h-32 w-32 rounded bg-beige inline-block">
           {
             img ?
               <img
@@ -32,13 +32,10 @@ const Profile: FC<Props> = ({ user }) => {
               </div>
           }
         </div>
-
-        <div className="col-span-5">
-          <h1 className="inline-block pt-10 pl-10">{name}</h1>
-        </div>
+        <h1 className="pl-10 inline-block">{name}</h1>
       </div>
 
-      <div className="flex flex-row-reverse pr-2 items-center">
+      <div className="flex flex-row-reverse pr-2 items-center pt-10 md:pt-0">
         {
           userID == user.id ?
             <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
@@ -66,10 +63,9 @@ const Profile: FC<Props> = ({ user }) => {
 
       <div className="py-8">
         <p>{description}</p>
-        {/* 自分のページのみ表示 */}
-        {!description && true && <p>プロフィールを書きましょう！！</p>}
+        {!description && true && <p className="text-red">プロフィールを書きましょう！</p>}
       </div>
-    </div>
+    </div >
   );
 };
 

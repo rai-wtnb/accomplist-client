@@ -88,6 +88,9 @@ export default function Login() {
                 ログイン
               </button>
 
+              <button className="button w-full mt-10">
+                テストユーザーでログイン
+              </button>
               <div className="text-center mt-8 hover:text-red">
                 <Link href="/signup">
                   <a>

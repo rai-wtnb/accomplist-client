@@ -125,6 +125,9 @@ export default function SignUp() {
           )}
         </Formik>
 
+        <button className="button w-full mt-10">
+          テストユーザーでログイン
+        </button>
         <div className="text-center mt-8 hover:text-red">
           <Link href="/login">
             <a>アカウントを既にお持ちの方はこちら</a>

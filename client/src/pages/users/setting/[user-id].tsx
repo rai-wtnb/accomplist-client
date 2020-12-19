@@ -117,7 +117,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
         >
           {(props) => (
             <form onSubmit={props.handleSubmit}>
-              <div className="grid grid-cols-4">
+              <div className="md:grid grid-cols-4">
                 <div className="col-span-1">
                   <FileInput
                     setImg={setProfImg}
