@@ -27,7 +27,7 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-3 gap-2 py-12">
+      <div className="md:grid grid-cols-3 gap-2 py-12">
 
         <div className="col-span-2">
           <div className="rounded border-beige border-2 p-2">

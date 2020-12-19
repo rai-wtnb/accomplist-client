@@ -6,7 +6,7 @@ export const Footer: FC = () => {
       <p>
         <span>
           &#169;
-          {`${new Date().getFullYear()} muku.`}
+          {`${new Date().getFullYear()} rai. watanabe`}
         </span>
       </p>
     </footer>
