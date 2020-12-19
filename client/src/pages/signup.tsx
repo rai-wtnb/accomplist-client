@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { GetStaticProps, NextPage } from 'next';
 import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -7,8 +8,13 @@ import axios from 'axios';
 
 import { Layout } from '../components/layout';
 import { setCookies } from '../utils/mycookie';
+import User from '../utils/types/user';
 
-export default function SignUp() {
+type Props = {
+  users: User[];
+}
+
+const SignUp: NextPage<Props> = ({ users }) => {
   const [flash, setFlash] = useState<boolean>(false)
   const router = useRouter();
   const validation = () =>
@@ -17,24 +23,21 @@ export default function SignUp() {
         .required('※IDを入力してください')
         .matches(/^[a-zA-Z0-9_]+$/, { message: '※英数字と「_」のみ有効です' })
         .max(20, '※IDは20字以下にしてください')
-        .test('id-test', '※すでに使用されています', (value) => {
-          if (value === 'rai') {
-            return false;
-          }
-          return true;
+        .test('id-test', '※すでに使用されています。他のIDを設定してください。', (value) => {
+          const result = users.map(user => {
+            if (user.id === value) {
+              return false;
+            }
+            return true;
+          })
+          return !result.includes(false);
         }),
       name: Yup.string()
         .required('※表示名を入力してください')
         .max(30, '※名前は30字以下にしてください'),
       email: Yup.string()
         .email('※メールアドレスの形式が正しくありません')
-        .required('※メールアドレスを入力してください')
-        .test('email-test', '※すでに登録されています', (value) => {
-          if (value === 'rai') {
-            return false;
-          }
-          return true;
-        }),
+        .required('※メールアドレスを入力してください'),
       password: Yup.string()
         .required('※パスワードを入力してください')
         .min(6, 'パスワードが短すぎます(6字以上)')
@@ -148,3 +151,15 @@ export default function SignUp() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await axios.get(`${process.env.ACCOMPLIST_API}/users`)
+  const users = res.data;
+  return {
+    props: {
+      users
+    },
+  };
+}
+
+export default SignUp;
