@@ -42,7 +42,7 @@ export default function Home() {
       <div className={`rounded border-2 border-beige text-center my-12 ${slide != 0 && "hidden"}`}>
         <h1 className="pt-4">What's AccompList?</h1>
         <p className="text-sm">AccompListとは？</p>
-        <img className="py-6 mx-auto" src="https://via.placeholder.com/600x400" />
+        <img className="my-12 mx-auto h-64" src="top_1.svg" />
         <p>
           AccompListとは, 自分が成し遂げたい・実現させたい -
           <span className="text-red">Accomplish</span>- と思っていることのリスト
@@ -55,7 +55,7 @@ export default function Home() {
 
       <div className={`rounded border-2 border-beige my-12 text-center ${slide != 1 && "hidden"}`}>
         <h1 className="pt-4">リストを書く。</h1>
-        <img className="py-6 mx-auto" src="https://via.placeholder.com/600x400" />
+        <img className="py-6 mx-auto h-64" src="top_2.svg" />
         <div>
           <p>まずは実現リスト -<span className="text-red">Accomplist</span>- を書きましょう。</p>
           <p>「イラストレーターになるため毎日1時間絵を描いて習慣化する」</p>
@@ -70,7 +70,7 @@ export default function Home() {
 
       <div className={`rounded border-2 border-beige my-12 text-center ${slide != 2 && "hidden"}`}>
         <h1 className="pt-4">実現 -Accomplish- し、達成記録を書く。</h1>
-        <img className="py-6 mx-auto" src="https://via.placeholder.com/600x400" />
+        <img className="my-12 mx-auto h-64" src="top_3.svg" />
         <p>リスト達成のために励みましょう。</p>
         <p>実現したら、<span className="text-red">達成記録</span>を書き、みんなと共有しましょう。</p>
         <p>あなたの努力,取り組みに共感してくれた方が「いいね」してくれるかもしれません。</p>
@@ -79,7 +79,7 @@ export default function Home() {
 
       <div className={`rounded border-2 border-beige my-12 text-center ${slide != 3 && "hidden"}`}>
         <h1 className="pt-4">みんなと実現する。</h1>
-        <img className="py-6 mx-auto" src="https://via.placeholder.com/600x400" />
+        <img className="my-12 mx-auto h-64" src="top_4.svg" />
         <p>実現に向け励む仲間達を探しましょう。</p>
         <p>頑張る仲間の取り組みを見て, 自分のモチベーションにつなげたり,取り組むことの参考になったりします。</p>
         <p>みんなで目標を達成させましょう!</p>
