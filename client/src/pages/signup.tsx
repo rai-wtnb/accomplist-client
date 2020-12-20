@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Link from 'next/link';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -152,7 +152,7 @@ const SignUp: NextPage<Props> = ({ users }) => {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
   const res = await axios.get(`${process.env.ACCOMPLIST_API}/users`)
   const users = res.data;
   return {
