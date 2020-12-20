@@ -1,11 +1,14 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 import axios from 'axios';
 
 import { divideCookie, getUserCookie } from '../../utils/mycookie';
 
 export const Header: FC = () => {
   const userID = getUserCookie();
+  const router = useRouter();
 
   return (
     <header className="header">
@@ -14,24 +17,25 @@ export const Header: FC = () => {
 
       {
         userID ?
-          <Link href="/">
-            <a
-              className="button float-right ml-5 bg-blue"
-              onClick={() => {
-                const content = divideCookie();
-                axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/logout`, {
-                  headers: {
-                    Cookie: `userID=${content["userID"]}`
-                  },
-                  withCredentials: true
+          <a
+            className="button float-right ml-5 bg-blue"
+            onClick={() => {
+              const content = divideCookie();
+              axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/logout`, {
+                headers: {
+                  Cookie: `userID=${content["userID"]}`
+                },
+                withCredentials: true
+              })
+                .then(() => {
+                  document.cookie = 'userID="none"; max-age=0; path=/';
+                  document.cookie = 'sessionID="none"; max-age=0; path=/';
                 })
-                  .then(() => {
-                    document.cookie = 'userID="none"; max-age=0; path=/';
-                    document.cookie = 'sessionID="none"; max-age=0; path=/';
-                  })
-              }}
-            >ログアウト</a>
-          </Link>
+                .then(() => {
+                  router.push(`/`)
+                })
+            }}
+          >ログアウト</a>
           :
           <>
             <Link href="/login">

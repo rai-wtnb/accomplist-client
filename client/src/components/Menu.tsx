@@ -17,11 +17,6 @@ const Menu: FC<MenuProps> = ({ userID }) => {
       as: `/users/${userID}`,
     },
     {
-      icon: 'search',
-      name: '検索',
-      href: '/',
-    },
-    {
       icon: 'hands-helping',
       name: '友達のリスト',
       href: '/',
@@ -30,6 +25,11 @@ const Menu: FC<MenuProps> = ({ userID }) => {
       icon: 'list',
       name: '話題のリスト',
       href: '/accomplishes/',
+    },
+    {
+      icon: 'search',
+      name: '検索',
+      href: '/',
     },
     {
       icon: 'bell',

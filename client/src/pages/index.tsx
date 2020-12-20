@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 import { Layout } from '../components/layout';
 import { getUserCookie } from '../utils/mycookie';
 
 export default function Home() {
   const userID = getUserCookie();
-  const router = useRouter();
   const [slide, setSlide] = useState<number>(0);
-
-  useEffect(() => {
-    userID && router.push(`/users/${userID}`)
-  }, [])
 
   const SlideButton = () => {
     return (
@@ -91,6 +85,16 @@ export default function Home() {
         </div>
         <SlideButton />
       </div>
+
+      {userID &&
+        <div className="text-center mb-4">
+          < Link href="/users/[user-id]" as={`/users/${userID}`}>
+            <a className="button w-full px-10">
+              My Page
+            </a>
+          </Link>
+        </div>
+      }
     </Layout>
   );
 }
