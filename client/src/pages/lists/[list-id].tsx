@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import axios from 'axios';
@@ -139,14 +139,7 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await axios.get(`${process.env.ACCOMPLIST_API}/lists`)
-  const lists: List[] = res.data;
-  const paths = lists.map(list => `/lists/${list.ID}`);
-  return { paths, fallback: false };
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['list-id'];
   const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/specific/${id}`);
   const list: List = listRes.data;

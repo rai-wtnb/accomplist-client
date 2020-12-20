@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 
 import { Layout } from '../../components/layout';
@@ -51,14 +51,7 @@ const UserPage: NextPage<Props> = ({ user, lists }) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await axios.get(`${process.env.ACCOMPLIST_API}/ids`)
-  const ids: string[] = await res.data;
-  const paths = ids.map(id => `/users/${id}`);
-  return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['user-id'];
   const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
   const user: User = userRes.data;

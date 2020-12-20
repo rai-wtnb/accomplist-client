@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 
 import { Layout } from '../../../components/layout';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import User from '../../../utils/types/user';
 import FileInput from '../../../components/FileInput';
 import { getUserCookie, getSessionCookie } from '../../../utils/mycookie';
@@ -190,14 +190,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await axios.get(`${process.env.ACCOMPLIST_API}/ids`)
-  const ids: string[] = await res.data;
-  const paths = ids.map(id => `/users/setting/${id}`);
-  return { paths, fallback: false };
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['user-id'];
   const res = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
   const user = res.data;

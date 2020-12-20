@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -195,14 +195,7 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await axios.get(`${process.env.ACCOMPLIST_API}/lists`)
-  const lists: List[] = res.data;
-  const paths = lists.map(list => `/lists/setting/${list.ID}`);
-  return { paths, fallback: false };
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['list-id'];
   const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/specific/${id}`)
   const list: List = listRes.data;
