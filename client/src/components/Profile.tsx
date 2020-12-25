@@ -16,17 +16,17 @@ const Profile: FC<Props> = ({ user }) => {
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
       <div className="flex items-center">
-        <div className="h-32 w-32 rounded bg-beige inline-block">
+        <div className="h-20 w-20 md:h-32 md:w-32 rounded bg-beige inline-block">
           {
             img ?
               <img
-                className="rounded object-cover h-32 w-full"
+                className="rounded object-cover h-20 w-20 md:h-32 md:w-32 w-full"
                 src={String(img)}
               />
               :
               <div className="flex justify-center pt-8">
                 <FontAwesomeIcon
-                  className="text-7xl text-blue items-center"
+                  className="text-4xl md:text-6xl text-blue items-center"
                   icon="user"
                 />
               </div>

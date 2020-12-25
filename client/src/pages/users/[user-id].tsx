@@ -30,7 +30,7 @@ const UserPage: NextPage<Props> = ({ user, lists }) => {
       < Layout >
         <Profile user={user} />
 
-        <div className="md:grid grid-cols-3 gap-2 relative py-12">
+        <div className="md:grid grid-cols-3 gap-2 relative pt-4 pb-12 md:pb-32">
           <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
             <ListIndex
               lists={lists}
