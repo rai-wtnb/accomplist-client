@@ -89,7 +89,27 @@ export default function Login() {
                 ログイン
               </button>
 
-              <button className="button w-full mt-10">
+              <button
+                className="button w-full mt-10"
+                onClick={() => {
+                  const params = new URLSearchParams();
+                  params.append("email", "aaa@aaa.com")
+                  params.append("password", "test_user")
+                  axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/login`, params)
+                    .then((res) => {
+                      const userID = res.data.userID;
+                      const sessionID = res.data.sessionID;
+                      setCookies(userID, sessionID)
+
+                      const content = divideCookie();
+                      router.push(`/users/${content["userID"]}`)
+                    })
+                    .catch(() => {
+                      setFlash(true)
+                      setTimeout(() => setFlash(false), 4000)
+                    })
+                }}
+              >
                 テストユーザーでログイン
               </button>
               <div className="text-center mt-8 hover:text-red">
