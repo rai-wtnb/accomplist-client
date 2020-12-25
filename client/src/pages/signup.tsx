@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 
 import { Layout } from '../components/layout';
-import { setCookies } from '../utils/mycookie';
+import { divideCookie, setCookies } from '../utils/mycookie';
 import User from '../utils/types/user';
 
 type Props = {
@@ -139,9 +139,29 @@ const SignUp: NextPage<Props> = ({ users }) => {
           )}
         </Formik>
 
-        <button className="button w-full mt-10">
+        <button
+          className="button w-full mt-10"
+          onClick={() => {
+            const params = new URLSearchParams();
+            params.append("email", "aaa@aaa.com")
+            params.append("password", "test_user")
+            axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/users/login`, params)
+              .then((res) => {
+                const userID = res.data.userID;
+                const sessionID = res.data.sessionID;
+                setCookies(userID, sessionID)
+
+                const content = divideCookie();
+                router.push(`/users/${content["userID"]}`)
+              })
+              .catch(() => {
+                setFlash(true)
+                setTimeout(() => setFlash(false), 4000)
+              })
+          }}
+        >
           テストユーザーでログイン
-        </button>
+              </button>
         <div className="text-center mt-8 hover:text-red">
           <Link href="/login">
             <a>アカウントを既にお持ちの方はこちら</a>
