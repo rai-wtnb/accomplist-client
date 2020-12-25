@@ -133,7 +133,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
                     </div>
                     <input
                       id="name"
-                      className="rounded border border-beige w-1/2 text-black p-1 text-2xl"
+                      className="rounded border border-beige w-full md:w-1/2 text-black p-1 text-2xl"
                       name="name"
                       value={props.values.name}
                       onChange={props.handleChange}
@@ -147,7 +147,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
                     </div>
                     <span className="pr-1">@</span>
                     <input
-                      className="rounded border border-beige w-1/2 text-black p-1"
+                      className="rounded border border-beige md:w-1/2 text-black p-1"
                       id="twitter"
                       name="twitter"
                       value={props.values.twitter}
