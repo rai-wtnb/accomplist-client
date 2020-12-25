@@ -33,27 +33,25 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
           <div className="rounded border-beige border-2 p-2">
 
             <Link href="/users/[user-id]" as={`/users/${user.id}`}>
-              <a>
-                <span className="grid grid-cols-7 hover:opacity-75">
-                  <span className="col-span-2 h-32 w-32 rounded bg-beige inline-block">
+              <a className="flex items-center">
+                <span className="hover:opacity-75">
+                  <span className="h-20 w-20 md:h-32 md:w-32 rounded bg-beige inline-block">
                     {
                       user.img ?
                         <img
-                          className="rounded object-cover h-32 w-full"
+                          className="rounded object-cover h-20 w-full inline-blok"
                           src={String(user.img)}
                         />
                         :
                         <span className="flex justify-center pt-8">
                           <FontAwesomeIcon
-                            className="text-7xl text-blue items-center"
+                            className="text-4xl md:text-6xl text-blue items-center"
                             icon="user"
                           />
                         </span>
                     }
                   </span>
-                  <span className="col-span-5">
-                    <h1 className="inline-block pt-10 pl-10">{user.name}</h1>
-                  </span>
+                  <h1 className="inline-block pl-10">{user.name}</h1>
                 </span>
               </a>
             </Link>
