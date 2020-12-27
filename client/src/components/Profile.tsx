@@ -15,7 +15,7 @@ const Profile: FC<Props> = ({ user }) => {
 
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
-      <div className="flex items-center">
+      <div className="flex items-center pb-2">
         <div className="h-20 w-20 md:h-32 md:w-32 rounded bg-beige inline-block">
           {
             img ?
@@ -35,35 +35,38 @@ const Profile: FC<Props> = ({ user }) => {
         <h1 className="pl-10 inline-block">{name}</h1>
       </div>
 
-      <div className="flex flex-row-reverse pr-2 items-center pt-10 md:pt-0">
-        {
-          userID == user.id ?
-            <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
-              <a>
-                <span className="text-beige bg-blue rounded px-2 py-2 cursor-pointer mx-2 hover:bg-red">設定</span>
-              </a>
-            </Link>
-            :
-            <span className="text-beige bg-blue rounded px-2 py-2 cursor-pointer mx-2 hover:bg-red">フォローする</span>
-        }
+      <div className="flex items-center items-center pt-10 md:pt-0">
+        <p className="inline-block">フォロー:-</p>
+        <p className="px-4 inline-block">フォロワー:-</p>
         {
           twitter ?
             <a href={`https://twitter.com/${twitter}`}>
               <FontAwesomeIcon
-                className="text-4xl cursor-pointer text-blue hover:text-red"
+                className="ml-4 text-3xl cursor-pointer text-blue hover:text-red text-center"
                 icon={["fab", "twitter-square"]}
               />
             </a>
             :
             ""
         }
-        <p className="pr-4">フォロワー:-</p>
-        <p className="pr-4">フォロー:-</p>
+        {
+          userID == user.id ?
+            <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
+              <a>
+                <span className="text-beige bg-blue rounded px-2 py-1 cursor-pointer mx-4 hover:bg-red">設定</span>
+              </a>
+            </Link>
+            :
+            <span
+              className="text-beige bg-blue rounded px-2 py-1 cursor-pointer mx-4 hover:bg-red"
+              onClick={() => alert("Coming soon!")}
+            >フォローする</span>
+        }
       </div>
 
       <div className="py-8">
         <p>{description}</p>
-        {!description && true && <p className="text-red">プロフィールを書きましょう！</p>}
+        {!description && true && <p>プロフィールを書きましょう！</p>}
       </div>
     </div >
   );

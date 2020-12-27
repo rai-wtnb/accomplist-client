@@ -27,7 +27,7 @@ const ListIndex: FC<Props> = ({ lists, userID }) => {
               {
                 list.done ?
                   <Link href="/lists/[list-id]" as={`/lists/${list.ID}`}>
-                    <a className="align-middle pr-2 text-blue text-3xl hover:text-red">
+                    <a className="align-middle pr-2 text-red text-3xl hover:opacity-75">
                       <FontAwesomeIcon icon={["far", "check-square"]} />
                     </a>
                   </Link>
@@ -45,31 +45,29 @@ const ListIndex: FC<Props> = ({ lists, userID }) => {
               }
             </div>
 
-            <div className="col-span-5">
-              <p className="py-4">
-                {list.content}
-              </p>
+            <div className="col-span-6 pt-1">
+              {
+                list.done ?
+                  <Link href="/lists/[list-id]" as={`/lists/${list.ID}`}>
+                    <a className="block py-4 underline text-red hover:opacity-75">
+                      {list.content}
+                    </a>
+                  </Link>
+                  :
+                  <p className="py-4">
+                    {list.content}
+                  </p>
+              }
             </div>
 
             <div className="col-span-1" />
 
-            <div className="col-span-2">
-              {
-                list.done ?
-                  <Link href="/lists/[list-id]" as={`/lists/${list.ID}`}>
-                    <button className="button w-20 text-center my-4 ml-auto">
-                      <a>done!</a>
-                    </button>
-                  </Link>
-                  :
-                  ""
-              }
-
+            <div className="col-span-1 py-5">
               {
                 list.user_id == userID ?
                   <div>
                     <FontAwesomeIcon
-                      className="text-4xl text-blue hover:text-red cursor-pointer mr-4 mb-2 pt-4"
+                      className="text-lg text-blue hover:text-red cursor-pointer"
                       icon="trash"
                       onClick={() => {
                         axios.delete(`${process.env.ACCOMPLIST_API_BROWSER}/lists/specific/${String(list.ID)}`)

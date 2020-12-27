@@ -39,7 +39,7 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
                     {
                       user.img ?
                         <img
-                          className="rounded object-cover h-20 w-full inline-blok"
+                          className="rounded object-cover h-20 md:h-32 w-full inline-blok"
                           src={String(user.img)}
                         />
                         :
