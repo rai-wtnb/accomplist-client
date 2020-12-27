@@ -49,7 +49,7 @@ const ListIndex: FC<Props> = ({ lists, userID }) => {
               {
                 list.done ?
                   <Link href="/lists/[list-id]" as={`/lists/${list.ID}`}>
-                    <a className="block py-4 underline text-red hover:opacity-75">
+                    <a className="inline-block py-4 underline text-red hover:opacity-75">
                       {list.content}
                     </a>
                   </Link>

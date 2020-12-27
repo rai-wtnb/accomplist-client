@@ -34,8 +34,8 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
 
             <Link href="/users/[user-id]" as={`/users/${user.id}`}>
               <a className="flex items-center">
-                <span className="hover:opacity-75">
-                  <span className="h-20 w-20 md:h-32 md:w-32 rounded bg-beige inline-block">
+                <span className="hover:opacity-75 h-60">
+                  <span className="align-middle h-20 w-20 md:h-32 md:w-32 rounded bg-beige inline-block">
                     {
                       user.img ?
                         <img
@@ -51,12 +51,12 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
                         </span>
                     }
                   </span>
-                  <h1 className="inline-block pl-10">{user.name}</h1>
+                  <h1 className="align-middle inline-block pl-10">{user.name}</h1>
                 </span>
               </a>
             </Link>
 
-            <div className="pt-12 pb-2">
+            <div className="pt-6 pb-4">
               <img
                 className="w-full object-cover rounded"
                 src={String(feedback.img)}
@@ -69,8 +69,11 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
             <p className="text-sm">{feedback.CreatedAt}</p>
 
             <div className="flex flex-row-reverse p-2">
-              <FontAwesomeIcon className="m-2 text-red text-3xl cursor-pointer hover:opacity-90" icon="heart" />
-              <FontAwesomeIcon className="m-2 text-blue text-3xl hover:text-red cursor-pointer" icon={['far', 'heart']} />
+              {true ?
+                <FontAwesomeIcon className="m-2 text-red text-3xl cursor-pointer hover:opacity-90" icon="heart" />
+                :
+                <FontAwesomeIcon className="m-2 text-blue text-3xl hover:text-red cursor-pointer" icon={['far', 'heart']} />
+              }
 
               {
                 userID == user.id ?
@@ -85,50 +88,18 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
             </div>
           </div>
 
-          {/* <div className="rounded border-2 border-beige mt-6 ml-8 p-2">
+          <div className="rounded border-2 border-beige mt-4 ml-8 p-2">
             <Link href="/users/[user-id]" as="/users/1">
               <div className="cursor-pointer hover:opacity-75">
                 <img
-                  className="inline rounded"
-                  src="https://via.placeholder.com/60"
+                  className="align-middle inline rounded w-10 h-10"
+                  src={String(user.img)}
                 />
-                <a className="inline p-2">name</a>
+                <a className="align-middle inline p-2">{user.name}</a>
               </div>
             </Link>
-
-            <p className="pt-4">Good!</p>
-            <p className="flex flex-row-reverse text-sm pr-2">9/21.22:20</p>
-
-            <div className="flex flex-row-reverse">
-              <FontAwesomeIcon className="m-2 text-red text-2xl cursor-pointer hover:opacity-90" icon="heart" />
-              <FontAwesomeIcon className="m-2 text-blue text-2xl hover:text-red cursor-pointer" icon={['far', 'heart']} />
-              三項演算
-              <FontAwesomeIcon className="m-2 text-blue text-2xl hover:text-red cursor-pointer" icon="trash" />
-            </div>
+            <p className="pt-2">Comment... (Coming soon!)</p>
           </div>
-
-          <div className="rounded border-2 border-beige mt-2 ml-12 p-2">
-            <Link href="/users/[user-id]" as="/users/1">
-              <div className="cursor-pointer hover:opacity-75">
-                <img
-                  className="inline rounded"
-                  src="https://via.placeholder.com/60"
-                />
-                <a className="inline p-2">name</a>
-              </div>
-            </Link>
-            <p className="p-2">Thank you!</p>
-          </div>
-
-          <div className="rounded border-2 border-beige mt-4 ml-8 p-2">
-            comment...
-          </div>
-          <div className="rounded border-2 border-beige mt-4 ml-8 p-2">
-            comment...
-          </div>
-          <div className="rounded border-2 border-beige mt-4 ml-8 p-2">
-            comment...
-          </div> */}
         </div>
 
         <Menu userID={userID} />
