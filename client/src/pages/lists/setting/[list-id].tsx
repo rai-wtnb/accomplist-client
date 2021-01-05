@@ -198,11 +198,11 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['list-id'];
   const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/specific/${id}`)
-  const list: List = listRes.data;
-  const listUserID = list.user_id;
+  const list: List = await listRes.data;
+  const listUserID = await list.user_id;
   if (list.done === true) {
     const feedbackRes = await axios.get(`${process.env.ACCOMPLIST_API}/feedbacks/${id}`)
-    const feedback: Feedback = feedbackRes.data;
+    const feedback: Feedback = await feedbackRes.data;
     return {
       props: {
         list,

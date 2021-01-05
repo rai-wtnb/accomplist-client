@@ -193,7 +193,7 @@ const UserSetting: NextPage<Props> = ({ user }) => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['user-id'];
   const res = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
-  const user = res.data;
+  const user = await res.data;
   return {
     props: {
       user
