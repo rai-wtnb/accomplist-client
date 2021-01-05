@@ -14,7 +14,7 @@ import { getUserCookie } from '../../utils/mycookie';
 
 type Props = {
   user: User;
-  lists: List[];
+  lists: List[]
 }
 
 const UserPage: NextPage<Props> = ({ user, lists }) => {
@@ -54,9 +54,9 @@ const UserPage: NextPage<Props> = ({ user, lists }) => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['user-id'];
   const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`)
-  const user: User = userRes.data;
+  const user: User = await userRes.data;
   const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/users/${id}`)
-  const lists = listRes.data;
+  const lists: List[] = await listRes.data;
   return {
     props: {
       user,
