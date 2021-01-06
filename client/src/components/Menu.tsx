@@ -19,22 +19,22 @@ const Menu: FC<MenuProps> = ({ userID }) => {
     {
       icon: 'hands-helping',
       name: '友達のリスト',
-      href: '/',
+      href: '/friends_list',
     },
     {
       icon: 'list',
       name: '話題のリスト',
-      href: '/accomplishes/',
+      href: 'topics_list',
     },
     {
       icon: 'search',
       name: '検索',
-      href: '/',
+      href: '/search',
     },
     {
       icon: 'bell',
       name: 'お知らせ',
-      href: '/',
+      href: '/notification',
     },
   ];
 
