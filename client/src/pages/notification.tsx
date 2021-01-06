@@ -12,7 +12,7 @@ import List from '../utils/types/list';
 import TodoRegister from '../components/TodoRegister';
 import { getUserCookie } from '../utils/mycookie';
 
-const UserPage: NextPage<Props> = () => {
+const UserPage: NextPage = () => {
   const userID = getUserCookie();
   const router = useRouter();
 
