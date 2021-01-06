@@ -12,7 +12,7 @@ import List from '../utils/types/list';
 import TodoRegister from '../components/TodoRegister';
 import { getUserCookie } from '../utils/mycookie';
 
-const UserPage: NextPage = () => {
+const NotificationPage: NextPage = () => {
   const userID = getUserCookie();
   const router = useRouter();
 
@@ -34,4 +34,4 @@ const UserPage: NextPage = () => {
   )
 }
 
-export default UserPage;
+export default NotificationPage;
