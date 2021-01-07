@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { GetServerSideProps, NextPage } from 'next';
 
 import { Layout } from '../components/layout';
+import FeedbackTemp from '../components/FeedbackTemp';
 import Menu from '../components/Menu';
 import { getUserCookie } from '../utils/mycookie';
 import axios from 'axios';
@@ -27,13 +28,19 @@ const TopicsList: NextPage<Props> = ({ users, feedbacks }) => {
   return (
     <Layout>
       <div className="md:grid grid-cols-3 gap-2 relative pt-4 pb-12 md:pb-32">
-        <div className="col-span-2 rounded border-beige border-2 p-2 divide-y text-center">
-          <h1>話題のリスト</h1>
+        <div className="col-span-2 rounded border-beige border-2 p-2 my-2">
+          <h1 className="text-center my-4">話題のリスト</h1>
 
           {
             feedbacks.map((feedback) => {
-              return(
-                <h1>{feedback.title}</h1>
+              const user = users.find((user) => user.id === feedback.user_id)
+              return (
+                <FeedbackTemp
+                  key={feedback.ID}
+                  userID={userID}
+                  user={user}
+                  feedback={feedback}
+                />
               )
             })
           }
