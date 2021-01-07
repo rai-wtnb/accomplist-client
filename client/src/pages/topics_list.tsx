@@ -35,17 +35,19 @@ const TopicsList: NextPage<Props> = ({ users, feedbacks }) => {
             feedbacks.map((feedback) => {
               const user = users.find((user) => user.id === feedback.user_id)
               return (
-                {
-                  feedback.DeletedAt ?
-                    <div />
-                    :
-                    <FeedbackTemp
-                      key={feedback.ID}
-                      userID={userID}
-                      user={user}
-                      feedback={feedback}
-                    />
-                }
+                <>
+                  {
+                    feedback.DeletedAt ?
+                      <div />
+                      :
+                      <FeedbackTemp
+                        key={feedback.ID}
+                        userID={userID}
+                        user={user}
+                        feedback={feedback}
+                      />
+                  }
+                </>
               )
             })
           }
