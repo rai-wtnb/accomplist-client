@@ -24,7 +24,7 @@ const Menu: FC<MenuProps> = ({ userID }) => {
     {
       icon: 'list',
       name: '話題のリスト',
-      href: 'topics_list',
+      href: '/topics_list',
     },
     {
       icon: 'search',
