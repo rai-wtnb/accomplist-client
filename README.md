@@ -1,7 +1,7 @@
 # AccompList
-アプリケーション概要=> [accomplist-client](https://github.com/rai-wtnb/accomplist-api)
+アプリケーション概要=> [rai-wtnb/accomplist-api](https://github.com/rai-wtnb/accomplist-api)
 ## バックエンド
-[accomplist-client](https://github.com/rai-wtnb/accomplist-api)
+[rai-wtnb/accomplist-api](https://github.com/rai-wtnb/accomplist-api)
 - Go: 1.15.2
 - Gin: 1.6.3
 - gorm: 1.9.16
