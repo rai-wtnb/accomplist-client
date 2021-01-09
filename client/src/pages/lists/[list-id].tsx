@@ -34,7 +34,7 @@ const FeedbackPage: NextPage<Props> = ({ feedback, user }) => {
           <FeedbackTemp userID={userID} user={user} feedback={feedback} />
 
           <div className="rounded border-2 border-beige mt-4 ml-8 p-2">
-            <Link href="/users/[user-id]" as="/users/1">
+            <Link href="/users/[user-id]" as={`/users/${userID}`}>
               <div className="cursor-pointer hover:opacity-75">
                 <img
                   className="align-middle inline rounded w-10 h-10"

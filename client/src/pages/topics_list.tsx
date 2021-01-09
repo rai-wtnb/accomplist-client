@@ -9,8 +9,6 @@ import { getUserCookie } from '../utils/mycookie';
 import axios from 'axios';
 import User from '../utils/types/user';
 import Feedback from '../utils/types/feedback';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 type Props = {
   users: User[];
