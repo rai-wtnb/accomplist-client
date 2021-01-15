@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 import React, { FC } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -20,7 +21,7 @@ export const Header: FC = () => {
           onClick={() => {
             const content = divideCookie();
             const params = new URLSearchParams();
-            params.append('id', content.userID);
+            params.append('id', content['userID']);
             axios
               .post(
                 `${process.env.ACCOMPLIST_API_BROWSER}/users/logout`,
