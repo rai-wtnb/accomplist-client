@@ -9,6 +9,7 @@ import Menu from '../components/Menu';
 import User from '../utils/types/user';
 import { getUserCookie } from '../utils/mycookie';
 import Feedback from '../utils/types/feedback';
+import UserTemp from '../components/UserTemp';
 
 type Props = {
   users: User[];
@@ -18,12 +19,12 @@ type Props = {
 const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
   const userID = getUserCookie();
   const router = useRouter();
-  const [target, setTarget] = useState<'user' | 'feedback'>('user');
+  const [target, setTarget] = useState<'user' | 'feedback'>('feedback');
   const [searchWord, setSearchWord] = useState<string>('英語');
   const [searchUser, setSearchUser] = useState<User[] | null>(null);
   const [searchFeedback, setSearchFeedback] = useState<Feedback[] | null>(null);
 
-  const search = (searchWord, target) => {
+  const search = (searchWord) => {
     const resultUser = users.filter((user) => {
       return (
         user.name.indexOf(searchWord) > -1 ||
@@ -50,7 +51,7 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
     !userID && router.push(`/login`);
   }, []);
   useEffect(() => {
-    search(searchWord, target);
+    search(searchWord);
   }, [searchWord]);
 
   return (
@@ -85,15 +86,8 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
             ? searchUser &&
             searchUser.map((user) => {
               return (
-                <div className="border-2 border-beige my-2 py-1 hover:opacity-75">
-                  <Link href="/users/[user-id]" as={`/users/${user.id}`}>
-                    <a>
-                      <h1 className="pb-2">{user.name}</h1>
-                      <p>{user.description}</p>
-                    </a>
-                  </Link>
-                </div>
-              );
+                <UserTemp key={user.id} user={user} />
+              )
             })
             : searchFeedback &&
             searchFeedback.map((feedback) => {

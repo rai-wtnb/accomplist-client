@@ -1,17 +1,37 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
 import User from '../utils/types/user';
 import { getUserCookie } from '../utils/mycookie';
+import Count from '../utils/types/count';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 type Props = {
   user: User;
+  count: Count;
 }
 
-const Profile: FC<Props> = ({ user }) => {
+const Profile: FC<Props> = ({ user, count }) => {
   const { id, name, twitter, description, img } = user;
+  const [isFollow, setIsFollow] = useState<boolean>(false);
   const userID = getUserCookie();
+  const router = useRouter();
+
+  const jsonData = {
+    follow_id: userID,
+    follower_id: user.id,
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/relations/isfollow`, jsonData)
+      setIsFollow(result.data.isFollow);
+    }
+
+    fetchData();
+  }, []);
 
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
@@ -36,8 +56,24 @@ const Profile: FC<Props> = ({ user }) => {
       </div>
 
       <div className="flex items-center items-center pt-10 md:pt-0">
-        <p className="inline-block">フォロー:-</p>
-        <p className="px-4 inline-block">フォロワー:-</p>
+        <span className="inline-block hover:opacity-75">
+          <Link href="/users/follows/[user-id]" as={`/users/follows/${id}`}>
+            <a>
+              フォロー:
+              <span className="text-notifyBlue"> {count.followCount}</span>
+            </a>
+          </Link>
+        </span>
+
+        <span className="px-4 inline-block hover:opacity-75">
+          <Link href="/users/follows/[user-id]" as={`/users/follows/${id}`}>
+            <a>
+              フォロワー:
+              <span className="text-notifyBlue"> {count.followerCount}</span>
+            </a>
+          </Link>
+        </span>
+
         {
           twitter ?
             <a href={`https://twitter.com/${twitter}`}>
@@ -49,6 +85,7 @@ const Profile: FC<Props> = ({ user }) => {
             :
             ""
         }
+
         {
           userID == user.id ?
             <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
@@ -57,10 +94,30 @@ const Profile: FC<Props> = ({ user }) => {
               </a>
             </Link>
             :
-            <span
-              className="text-beige bg-blue rounded px-2 py-1 cursor-pointer mx-4 hover:bg-red"
-              onClick={() => alert("Coming soon!")}
-            >フォローする</span>
+            isFollow ?
+              <span
+                className="text-beige bg-blue rounded px-2 py-1 cursor-pointer mx-4 hover:bg-red"
+                onClick={() => {
+                  axios
+                    .delete(
+                      `${process.env.ACCOMPLIST_API_BROWSER}/relations`, { data: jsonData })
+                    .then(() => {
+                      router.reload();
+                    });
+                }}
+              >フォロー中</span>
+              :
+              <span
+                className="text-beige bg-blue rounded px-2 py-1 cursor-pointer mx-4 hover:bg-red"
+                onClick={() => {
+                  axios
+                    .post(
+                      `${process.env.ACCOMPLIST_API_BROWSER}/relations`, jsonData)
+                    .then(() => {
+                      router.reload();
+                    });
+                }}
+              >フォローする</span>
         }
       </div>
 
