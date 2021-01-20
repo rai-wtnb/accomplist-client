@@ -31,11 +31,6 @@ const Menu: FC<MenuProps> = ({ userID }) => {
       name: '検索',
       href: '/search',
     },
-    {
-      icon: 'bell',
-      name: 'お知らせ',
-      href: '/notification',
-    },
   ];
 
   return (
