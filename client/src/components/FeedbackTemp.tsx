@@ -63,7 +63,10 @@ const FeedbackTemp: FC<Props> = ({ userID, user, feedback }) => {
 
       <div className="flex flex-row-reverse p-2">
         {true ?
-          <FontAwesomeIcon className="m-2 text-red text-3xl cursor-pointer hover:opacity-90" icon="heart" />
+          <FontAwesomeIcon
+            className="m-2 text-red text-3xl cursor-pointer hover:opacity-90"
+            icon="heart"
+            onClick={() => alert("comming soon!")} />
           :
           <FontAwesomeIcon className="m-2 text-blue text-3xl hover:text-red cursor-pointer" icon={['far', 'heart']} />
         }

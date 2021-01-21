@@ -23,9 +23,7 @@ const UserPage: NextPage<Props> = ({ user, lists, count }) => {
   const userID = getUserCookie();
   const router = useRouter();
 
-  useEffect(() => {
-    !userID && router.push(`/login`);
-  }, []);
+  useEffect(() => { !userID && router.push(`/login`); }, []);
 
   return (
     <>
@@ -49,9 +47,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['user-id'];
   const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`);
   const user: User = await userRes.data;
-  const listRes = await axios.get(
-    `${process.env.ACCOMPLIST_API}/lists/users/${id}`,
-  );
+  const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/users/${id}`);
   const lists: List[] = await listRes.data;
   const countRes = await axios.get(`${process.env.ACCOMPLIST_API}/relations/count/${id}`)
   const count: Count = await countRes.data;
