@@ -43,7 +43,7 @@ export default function Home() {
             <span className="text-red">Accomplish</span>- と思っていることのリスト
             -<span className="text-red">List</span>- です。
           </p>
-          <p>人は誰でも・いつからでも、なりたい・成し遂げたいと思い継続し続ければ何でも実現できます。</p>
+          <p>人は誰でも・いつからでも、なりたい・成し遂げたいと思い継続し続ければ、やめなければ大抵のことは実現できます。</p>
           <p>AccompListはその継続する手助けをするアプリケーションです。</p>
         </div>
         <SlideButton />

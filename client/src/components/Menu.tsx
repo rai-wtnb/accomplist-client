@@ -19,7 +19,8 @@ const Menu: FC<MenuProps> = ({ userID }) => {
     {
       icon: 'hands-helping',
       name: '友達のリスト',
-      href: '/friends_list',
+      href: '/users/friends/[user-id]',
+      as: `/users/friends/${userID}`
     },
     {
       icon: 'list',

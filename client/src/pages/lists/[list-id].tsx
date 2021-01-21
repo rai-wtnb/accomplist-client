@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { GetServerSideProps, NextPage } from 'next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 

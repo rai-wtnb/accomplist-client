@@ -29,12 +29,12 @@ const Profile: FC<Props> = ({ user, count }) => {
       const result = await axios.post(`${process.env.ACCOMPLIST_API_BROWSER}/relations/isfollow`, jsonData)
       setIsFollow(result.data.isFollow);
     }
-
     fetchData();
   }, []);
 
   return (
     <div className="mt-12 rounded border-beige border-2 p-2">
+
       <div className="flex items-center pb-2">
         <div className="h-20 w-20 md:h-32 md:w-32 rounded bg-beige inline-block">
           {
@@ -56,6 +56,7 @@ const Profile: FC<Props> = ({ user, count }) => {
       </div>
 
       <div className="flex items-center items-center pt-10 md:pt-0">
+
         <span className="inline-block hover:opacity-75">
           <Link href="/users/follows/[user-id]" as={`/users/follows/${id}`}>
             <a>
@@ -88,7 +89,7 @@ const Profile: FC<Props> = ({ user, count }) => {
 
         {
           userID == user.id ?
-            <Link href="/users/setting/[list-id]" as={`/users/setting/${id}`}>
+            <Link href="/users/setting/[user-id]" as={`/users/setting/${userID}`} >
               <a>
                 <span className="text-beige bg-blue rounded px-2 py-1 cursor-pointer mx-4 hover:bg-red">設定</span>
               </a>

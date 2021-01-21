@@ -47,16 +47,13 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
     }
   };
 
-  useEffect(() => {
-    !userID && router.push(`/login`);
-  }, []);
-  useEffect(() => {
-    search(searchWord);
-  }, [searchWord]);
+  useEffect(() => { !userID && router.push(`/login`); }, []);
+  useEffect(() => { search(searchWord); }, [searchWord]);
 
   return (
     <Layout>
       <div className="md:grid grid-cols-3 gap-2 relative pt-4 pb-12 md:pb-32">
+
         <div className="col-span-2 rounded border-beige border-2 p-2">
           <h1 className="text-center">検索</h1>
           <input
@@ -67,6 +64,7 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
             onChange={(e) => setSearchWord(e.target.value)}
           />
           <p className="text-xs">※キーワードを入力してください(ex. 英語</p>
+
           <div className="flex flex-row text-center my-4">
             <p
               className={`flex-grow py-1 text-beige rounded-tl-lg rounded-bl-lg hover:opacity-90 ${target == 'feedback' ? 'bg-red' : 'bg-blue'}`}
@@ -105,6 +103,7 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
         </div>
 
         <Menu userID={userID} />
+
       </div>
     </Layout>
   );
@@ -113,9 +112,7 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
   const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users`);
   const users: User[] = await userRes.data;
-  const feedbackRes = await axios.get(
-    `${process.env.ACCOMPLIST_API}/feedbacks`,
-  );
+  const feedbackRes = await axios.get(`${process.env.ACCOMPLIST_API}/feedbacks`);
   const feedbacks: Feedback[] = await feedbackRes.data;
   return {
     props: {
