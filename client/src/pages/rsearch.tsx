@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { NextPage, GetServerSideProps } from 'next';
+import { NextPage } from 'next';
 import Link from 'next/link';
 import axios from 'axios';
 
@@ -11,44 +11,34 @@ import { getUserCookie } from '../utils/mycookie';
 import Feedback from '../utils/types/feedback';
 import UserTemp from '../components/UserTemp';
 
-type Props = {
-  users: User[];
-  feedbacks: Feedback[];
-};
-
-const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
+const SearchPage: NextPage = () => {
   const userID = getUserCookie();
   const router = useRouter();
-  const [target, setTarget] = useState<'user' | 'feedback'>('feedback');
-  const [searchWord, setSearchWord] = useState<string>('英語');
   const [searchUser, setSearchUser] = useState<User[] | null>(null);
   const [searchFeedback, setSearchFeedback] = useState<Feedback[] | null>(null);
+  const [searchWord, setSearchWord] = useState<string>('英語');
+  const [target, setTarget] = useState<'user' | 'feedback'>('feedback');
 
-  const search = (searchWord) => {
-    const resultUser = users.filter((user) => {
-      return (
-        user.name.indexOf(searchWord) > -1 ||
-        user.description.indexOf(searchWord) > -1
-      );
-    });
-    const resultFeedback = feedbacks.filter((feedback) => {
-      return (
-        feedback.title.indexOf(searchWord) > -1 ||
-        feedback.body.indexOf(searchWord) > -1
-      );
-    });
+  useEffect(() => {
+    !userID && router.push(`/login`);
+    research()
+  }, []);
 
-    if (searchWord) {
-      setSearchUser(resultUser);
-      setSearchFeedback(resultFeedback);
-    } else {
-      setSearchUser(null);
-      setSearchFeedback(null);
-    }
-  };
+  const research = () => {
+    axios.get(`${process.env.ACCOMPLIST_API_BROWSER}/research?target=${target}&req=${searchWord}`)
+      .then(res => {
+        target == "user" ?
+          setSearchUser(res.data)
+          :
+          setSearchFeedback(res.data)
+      })
+      .catch(err => console.log(err))
+  }
 
-  useEffect(() => { !userID && router.push(`/login`); }, []);
-  useEffect(() => { search(searchWord); }, [searchWord]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    research();
+  }
 
   return (
     <Layout>
@@ -56,14 +46,26 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
 
         <div className="col-span-2 rounded border-beige border-2 p-2">
           <h1 className="text-center">検索</h1>
-          <input
-            className="border-2 border-beige rounded mt-4 py-1 w-full text-xl"
-            type="text"
-            placeholder="search"
-            value={searchWord}
-            onChange={(e) => setSearchWord(e.target.value)}
-          />
+
+          <form
+            className="flex items-end"
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            <input
+              className="border-2 border-beige rounded mt-4 py-1 w-64 text-xl flex-grow"
+              type="text"
+              placeholder="search"
+              value={searchWord}
+              onChange={(e) => setSearchWord(e.target.value)}
+            />
+            <button
+              className="button bg-blue ml-2 flex-none"
+              onClick={() => research()}
+            >検索</button>
+          </form>
+
           <p className="text-xs">※キーワードを入力してください(ex. 英語</p>
+
 
           <div className="flex flex-row text-center my-4">
             <p
@@ -74,7 +76,7 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
             </p>
             <p
               className={`flex-grow py-1 text-beige rounded-tr-lg rounded-br-lg hover:opacity-90 ${target == 'user' ? 'bg-red' : 'bg-blue'}`}
-              onClick={() => setTarget('user')}
+              onClick={() => { setTarget('user') }}
             >
               ユーザー
             </p>
@@ -107,19 +109,6 @@ const SearchPage: NextPage<Props> = ({ users, feedbacks }) => {
       </div>
     </Layout>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users`);
-  const users: User[] = await userRes.data;
-  const feedbackRes = await axios.get(`${process.env.ACCOMPLIST_API}/feedbacks`);
-  const feedbacks: Feedback[] = await feedbackRes.data;
-  return {
-    props: {
-      users,
-      feedbacks,
-    },
-  };
 };
 
 export default SearchPage;

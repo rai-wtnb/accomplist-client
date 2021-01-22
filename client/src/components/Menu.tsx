@@ -30,7 +30,7 @@ const Menu: FC<MenuProps> = ({ userID }) => {
     {
       icon: 'search',
       name: '検索',
-      href: '/search',
+      href: '/rsearch',
     },
   ];
 
