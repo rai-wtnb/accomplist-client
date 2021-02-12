@@ -15,11 +15,9 @@ import Count from '../../utils/types/count';
 
 type Props = {
   user: User;
-  lists: List[];
-  count: Count;
 };
 
-const UserPage: NextPage<Props> = ({ user, lists, count }) => {
+const UserPage: NextPage<Props> = ({ user }) => {
   const userID = getUserCookie();
   const router = useRouter();
 
@@ -28,11 +26,11 @@ const UserPage: NextPage<Props> = ({ user, lists, count }) => {
   return (
     <>
       <Layout>
-        <Profile user={user} count={count} />
+        <Profile user={user} />
 
         <div className="md:grid grid-cols-3 gap-2 relative pt-4 pb-12 md:pb-32">
           <div className="col-span-2 rounded border-beige border-2 p-2 divide-y divide-beige">
-            <ListIndex lists={lists} userID={userID} />
+            <ListIndex lists={user.lists} userID={userID} />
             {userID == user.id ? <TodoRegister id={user.id} /> : ''}
           </div>
 
@@ -47,15 +45,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['user-id'];
   const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users/${id}`);
   const user: User = await userRes.data;
-  const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/users/${id}`);
-  const lists: List[] = await listRes.data;
-  const countRes = await axios.get(`${process.env.ACCOMPLIST_API}/relations/count/${id}`)
-  const count: Count = await countRes.data;
   return {
     props: {
       user,
-      lists,
-      count,
     },
   };
 };

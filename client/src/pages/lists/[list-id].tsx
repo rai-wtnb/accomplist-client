@@ -56,14 +56,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['list-id'];
   const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/specific/${id}`);
   const list: List = await listRes.data;
-  const feedbackRes = await axios.get(`${process.env.ACCOMPLIST_API}/feedbacks/${id}`)
-  const feedback: Feedback = await feedbackRes.data;
-  const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users/${list.user_id}`)
-  const user: User = await userRes.data;
+  const feedback: Feedback = list.feedback;
+  const user: User = list.user;
   return {
     props: {
       feedback,
-      user
+      user,
     },
   };
 }

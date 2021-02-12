@@ -18,8 +18,8 @@ const ListIndex: FC<Props> = ({ lists, userID }) => {
     <div className="divide-y divide-beige">
       <h1 className="pb-4 text-center">AccompList</h1>
 
-      {lists.length == 0 && <p className="py-4 text-center text-red">達成したいことを書いていきましょう!</p>}
-      {lists.map(list => {
+      {lists && lists.length == 0 && <p className="py-4 text-center text-red">達成したいことを書いていきましょう!</p>}
+      {lists && lists.map(list => {
         return (
           <div key={list.ID} className="grid grid-cols-9">
 
