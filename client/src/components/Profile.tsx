@@ -10,10 +10,9 @@ import { useRouter } from 'next/router';
 
 type Props = {
   user: User;
-  count: Count;
 }
 
-const Profile: FC<Props> = ({ user, count }) => {
+const Profile: FC<Props> = ({ user }) => {
   const { id, name, twitter, description, img } = user;
   const [isFollow, setIsFollow] = useState<boolean>(false);
   const userID = getUserCookie();
@@ -61,7 +60,7 @@ const Profile: FC<Props> = ({ user, count }) => {
           <Link href="/users/follows/[user-id]" as={`/users/follows/${id}`}>
             <a>
               フォロー:
-              <span className="text-notifyBlue"> {count.followCount}</span>
+              <span className="text-notifyBlue"> {user.Count.followCount}</span>
             </a>
           </Link>
         </span>
@@ -70,7 +69,7 @@ const Profile: FC<Props> = ({ user, count }) => {
           <Link href="/users/follows/[user-id]" as={`/users/follows/${id}`}>
             <a>
               フォロワー:
-              <span className="text-notifyBlue"> {count.followerCount}</span>
+              <span className="text-notifyBlue"> {user.Count.followerCount}</span>
             </a>
           </Link>
         </span>

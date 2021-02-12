@@ -10,39 +10,39 @@ import { Layout } from '../components/layout';
 import { divideCookie, setCookies } from '../utils/mycookie';
 import User from '../utils/types/user';
 
-type Props = {
-  users: User[];
-}
+// type Props = {
+//   users: User[];
+// }
 
-const SignUp: NextPage<Props> = ({ users }) => {
+const SignUp: NextPage = () => {
   const [flash, setFlash] = useState<boolean>(false)
   const router = useRouter();
-  const validation = () =>
-    Yup.object().shape({
-      id: Yup.string()
-        .required('※IDを入力してください')
-        .matches(/^[a-zA-Z0-9_]+$/, { message: '※英数字と「_」のみ有効です' })
-        .max(20, '※IDは20字以下にしてください')
-        .test('id-test', '※すでに使用されています。他のIDを設定してください。', (value) => {
-          const result = users.map(user => {
-            if (user.id === value) {
-              return false;
-            }
-            return true;
-          })
-          return !result.includes(false);
-        }),
-      name: Yup.string()
-        .required('※表示名を入力してください')
-        .max(30, '※名前は30字以下にしてください'),
-      email: Yup.string()
-        .email('※メールアドレスの形式が正しくありません')
-        .required('※メールアドレスを入力してください'),
-      password: Yup.string()
-        .required('※パスワードを入力してください')
-        .min(6, 'パスワードが短すぎます(6字以上)')
-        .max(50, '50字以下にしてください'),
-    });
+  // const validation = () =>
+  //   Yup.object().shape({
+  //     id: Yup.string()
+  //       .required('※IDを入力してください')
+  //       .matches(/^[a-zA-Z0-9_]+$/, { message: '※英数字と「_」のみ有効です' })
+  //       .max(20, '※IDは20字以下にしてください')
+  //       .test('id-test', '※すでに使用されています。他のIDを設定してください。', (value) => {
+  //         const result = users.map(user => {
+  //           if (user.id === value) {
+  //             return false;
+  //           }
+  //           return true;
+  //         })
+  //         return !result.includes(false);
+  //       }),
+  //     name: Yup.string()
+  //       .required('※表示名を入力してください')
+  //       .max(30, '※名前は30字以下にしてください'),
+  //     email: Yup.string()
+  //       .email('※メールアドレスの形式が正しくありません')
+  //       .required('※メールアドレスを入力してください'),
+  //     password: Yup.string()
+  //       .required('※パスワードを入力してください')
+  //       .min(6, 'パスワードが短すぎます(6字以上)')
+  //       .max(50, '50字以下にしてください'),
+  //   });
 
   return (
     <Layout>
@@ -59,7 +59,7 @@ const SignUp: NextPage<Props> = ({ users }) => {
         }
         <Formik
           initialValues={{ id: '', name: '', email: '', password: '' }}
-          validationSchema={validation()}
+          // validationSchema={validation()}
           onSubmit={(values) => {
             axios
               .post(
@@ -172,14 +172,6 @@ const SignUp: NextPage<Props> = ({ users }) => {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await axios.get(`${process.env.ACCOMPLIST_API}/users`)
-  const users = res.data;
-  return {
-    props: {
-      users
-    },
-  };
-}
+
 
 export default SignUp;
