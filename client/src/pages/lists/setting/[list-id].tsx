@@ -26,12 +26,10 @@ const validation = () =>
 
 type Props = {
   list: List;
-  feedback: Feedback;
-  listUserID: string;
 }
 
-const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
-  const { ID, img, title, body } = feedback;
+const ListSetting: NextPage<Props> = ({ list }) => {
+  const { ID, img, title, body } = list.feedback;
   const [feedbackImg, setFeedbackImg] = useState<File>(img);
   const [updateFailed, setUpdateFailed] = useState<boolean>(false);
   const router = useRouter();
@@ -183,7 +181,7 @@ const ListSetting: NextPage<Props> = ({ list, feedback, listUserID }) => {
         </Formik>
 
         <div className="px-2 pb-2">
-          <Link href="/users/[user-id]" as={`/users/${listUserID}`}>
+          <Link href="/users/[user-id]" as={`/users/${list.user_id}`}>
             <a>
               <button className="w-full bg-blue text-beige hover:bg-red py-1 rounded">キャンセル</button>
             </a>
@@ -199,36 +197,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['list-id'];
   const listRes = await axios.get(`${process.env.ACCOMPLIST_API}/lists/specific/${id}`)
   const list: List = await listRes.data;
-  const listUserID = await list.user_id;
-  if (list.done === true) {
-    const feedbackRes = await axios.get(`${process.env.ACCOMPLIST_API}/feedbacks/${id}`)
-    const feedback: Feedback = await feedbackRes.data;
-    return {
-      props: {
-        list,
-        feedback,
-        listUserID,
-      },
-    }
-  } else {
-    const feedback: Feedback = {
-      ID: "",
-      CreatedAt: null,
-      UpdatedAt: null,
-      user_id: "",
-      list_id: "",
-      img: null,
-      title: "",
-      body: "",
-    };
-    return {
-      props: {
-        list,
-        feedback,
-        listUserID,
-      }
-    }
-  };
+  return {
+    props: {
+      list,
+    },
+  }
 }
 
 export default ListSetting;
