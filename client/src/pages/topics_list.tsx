@@ -11,11 +11,10 @@ import User from '../utils/types/user';
 import Feedback from '../utils/types/feedback';
 
 type Props = {
-  users: User[];
   feedbacks: Feedback[];
 }
 
-const TopicsList: NextPage<Props> = ({ users, feedbacks }) => {
+const TopicsList: NextPage<Props> = ({ feedbacks }) => {
   const userID = getUserCookie();
   const router = useRouter();
 
@@ -31,17 +30,16 @@ const TopicsList: NextPage<Props> = ({ users, feedbacks }) => {
 
           {
             feedbacks.map((feedback) => {
-              const user = users.find((user) => user.id === feedback.user_id)
               return (
                 <>
                   {
-                    feedback.DeletedAt || !user ?
+                    feedback.DeletedAt || !feedback.user ?
                       <div />
                       :
                       <FeedbackTemp
                         key={feedback.ID}
                         userID={userID}
-                        user={user}
+                        user={feedback.user}
                         feedback={feedback}
                       />
                   }
@@ -58,13 +56,10 @@ const TopicsList: NextPage<Props> = ({ users, feedbacks }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const userRes = await axios.get(`${process.env.ACCOMPLIST_API}/users`)
-  const users: User[] = await userRes.data;
   const feedbackRes = await axios.get(`${process.env.ACCOMPLIST_API}/feedbacks`)
   const feedbacks: Feedback[] = await feedbackRes.data;
   return {
     props: {
-      users,
       feedbacks,
     },
   };

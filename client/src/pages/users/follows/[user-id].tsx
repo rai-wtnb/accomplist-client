@@ -7,6 +7,7 @@ import Menu from '../../../components/Menu';
 import User from '../../../utils/types/user';
 import { getUserCookie } from '../../../utils/mycookie';
 import UserTemp from '../../../components/UserTemp';
+import FollowsAndFollowers from '../../../utils/types/followsAndFollowers';
 
 type Props = {
   follows: User[];
@@ -61,9 +62,9 @@ const FollowPage: NextPage<Props> = ({ follows, followers }) => {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const id = params['user-id'];
   const followRes = await axios.get(`${process.env.ACCOMPLIST_API}/relations/follows/${id}`);
-  const follows: User[] = await followRes.data;
-  const followerRes = await axios.get(`${process.env.ACCOMPLIST_API}/relations/followers/${id}`);
-  const followers: User[] = await followerRes.data;
+  const followsAndFollowers: FollowsAndFollowers = await followRes.data;
+  const follows = followsAndFollowers.follows;
+  const followers = followsAndFollowers.followers;
   return {
     props: {
       follows,

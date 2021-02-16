@@ -29,17 +29,16 @@ const FriendsPage: NextPage<Props> = ({ users, feedbacks }) => {
 
           {
             feedbacks.map((feedback) => {
-              const user = users.find((user) => user.id === feedback.user_id)
               return (
                 <>
                   {
-                    feedback.DeletedAt || !user ?
+                    feedback.DeletedAt || !feedback.user ?
                       <div />
                       :
                       <FeedbackTemp
                         key={feedback.ID}
                         userID={userID}
-                        user={user}
+                        user={feedback.user}
                         feedback={feedback}
                       />
                   }
