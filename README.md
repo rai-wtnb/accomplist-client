@@ -1,3 +1,6 @@
+# 予算の関係上(RDS高過ぎ問題で..)、APIサーバーを現在停止しております。
+# 煩雑ではありますが、[rai-wtnb/accomplist-api](https://github.com/rai-wtnb/accomplist-api)の方にインフラ構成を記載しております。(Terraform)
+
 # AccompList
 アプリケーション概要=> [rai-wtnb/accomplist-api](https://github.com/rai-wtnb/accomplist-api)
 ## バックエンド
