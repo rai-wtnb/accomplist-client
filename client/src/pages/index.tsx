@@ -33,6 +33,9 @@ export default function Home() {
 
   return (
     <Layout>
+      <h1 className="text-red text-center mt-12">※現在APIサーバを停止しております。</h1>
+      <h1 className="text-red text-center mt-12">詳細は→ <a className="hover:text-blue" href="https://github.com/rai-wtnb">github.com/rai-wtnb</a></h1>
+
       <div className={`rounded border-2 border-beige md:text-center my-12 ${slide != 0 && "hidden"}`}>
         <h1 className="pt-4 text-center">What's AccompList?</h1>
         <p className="text-sm text-center">AccompListとは？</p>
