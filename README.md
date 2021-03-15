@@ -1,5 +1,5 @@
-# 予算の関係上、APIサーバーを現在停止しております。
-# 少し煩雑ですが、[rai-wtnb/accomplist-api](https://github.com/rai-wtnb/accomplist-api)のTerraformディレクトリの方にインフラ構成を記載しております。
+# 予算の関係上(RDSが...)、APIサーバーを現在停止しています。
+# 少し煩雑ですが、[rai-wtnb/accomplist-api](https://github.com/rai-wtnb/accomplist-api)のTerraformディレクトリの方にインフラ構成を記載しています。
 
 # AccompList
 アプリケーション概要=> [rai-wtnb/accomplist-api](https://github.com/rai-wtnb/accomplist-api)
